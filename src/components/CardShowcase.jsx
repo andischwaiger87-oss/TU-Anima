@@ -6,6 +6,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
         // Find index of initial card
@@ -17,6 +18,11 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
             document.body.style.overflow = 'auto';
         };
     }, [initialCard]);
+
+    useEffect(() => {
+        // Scroll to top of content when card changes on mobile
+        if (contentRef.current) contentRef.current.scrollTop = 0;
+    }, [currentIndex]);
 
     // Handle slide change
     const goToNext = (e) => {
@@ -72,6 +78,44 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 .hover-scale:hover { transform: scale(1.1); }
                 .hover-btn { transition: all 0.2s; }
                 .hover-btn:hover { background: #333 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important; }
+
+                /* Responsive Styles */
+                @media (max-width: 1024px) {
+                    .showcase-container {
+                        flex-direction: column !important;
+                        padding: 10px !important;
+                        gap: 20px !important;
+                        overflow-y: auto;
+                        justify-content: flex-start !important;
+                    }
+                    .showcase-card-area {
+                        margin-top: 60px; /* Space for close btn */
+                        width: 100%;
+                        height: auto;
+                        margin-bottom: 20px;
+                    }
+                    .showcase-card-img {
+                        height: auto !important;
+                        max-height: 40vh !important;
+                        width: auto !important;
+                        max-width: 100%;
+                    }
+                    .showcase-info-box {
+                        max-width: 100% !important;
+                        padding: 20px !important;
+                        box-shadow: none !important;
+                        background: transparent !important;
+                    }
+                    .showcase-nav-btn {
+                        background: rgba(255,255,255,0.8) !important;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
             `}</style>
 
             {/* Close Button */}
@@ -80,10 +124,10 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 className="hover-scale"
                 style={{
                     position: 'absolute',
-                    top: '30px',
-                    right: '30px',
-                    width: '50px',
-                    height: '50px',
+                    top: '20px',
+                    right: '20px',
+                    width: '44px',
+                    height: '44px',
                     background: 'black',
                     color: 'white',
                     border: 'none',
@@ -99,22 +143,27 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 <X size={24} />
             </button>
 
-            {/* Main Content */}
-            <div style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                maxWidth: '1200px',
-                margin: '0 auto',
-                padding: '20px',
-                gap: '80px',
-                position: 'relative'
-            }}>
+            {/* Main Content Container */}
+            <div
+                ref={contentRef}
+                className="showcase-container"
+                style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    padding: '20px',
+                    gap: '80px',
+                    position: 'relative',
+                    height: '100%',
+                }}
+            >
 
                 {/* Left: Card Area */}
-                <div style={{
+                <div className="showcase-card-area" style={{
                     position: 'relative',
                     zIndex: 10,
                     display: 'flex',
@@ -122,18 +171,18 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     justifyContent: 'center',
                     animation: 'slideUp 0.4s ease-out'
                 }}>
-                    <button onClick={goToPrev} className="hover-scale" style={{
-                        position: 'absolute', left: '-80px',
+                    <button onClick={goToPrev} className="hover-scale showcase-nav-btn" style={{
+                        position: 'absolute', left: '-60px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
-                        padding: '10px'
+                        padding: '10px', zIndex: 20
                     }}>
                         <ChevronLeft size={48} />
                     </button>
 
                     <div style={{ perspective: '1200px', position: 'relative' }}>
                         <div style={{
-                            padding: '15px',
+                            padding: '10px',
                             background: 'white',
                             borderRadius: '16px',
                             boxShadow: '0 25px 60px -10px rgba(0,0,0,0.2)',
@@ -141,9 +190,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                             transition: 'transform 0.3s ease'
                         }}>
                             <img
-                                // React uses key to avoid re-mounting unless id changes if we want, 
-                                // but removing key lets it diff the internal props for smoother transition
-                                // if we don't want a full unmount/remount
+                                className="showcase-card-img"
                                 src={card.image}
                                 alt={card.name}
                                 style={{
@@ -156,22 +203,13 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                                 }}
                             />
                         </div>
-
-                        {/* Reflection */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '100%', left: 0, right: 0,
-                            height: '60px', marginTop: '10px',
-                            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, transparent 70%)',
-                            transform: 'scaleX(0.8)', filter: 'blur(8px)', zIndex: -1
-                        }} />
                     </div>
 
-                    <button onClick={goToNext} className="hover-scale" style={{
-                        position: 'absolute', right: '-80px',
+                    <button onClick={goToNext} className="hover-scale showcase-nav-btn" style={{
+                        position: 'absolute', right: '-60px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
-                        padding: '10px'
+                        padding: '10px', zIndex: 20
                     }}>
                         <ChevronRight size={48} />
                     </button>
@@ -180,6 +218,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 {/* Right: Info Box */}
                 <div
                     key={card.id}
+                    className="showcase-info-box"
                     style={{
                         background: 'white',
                         padding: '40px',
@@ -187,35 +226,33 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         maxWidth: '400px',
                         width: '100%',
                         position: 'relative',
-                        animation: 'slideUp 0.5s ease-out'
+                        animation: 'slideUp 0.5s ease-out',
+                        borderRadius: '12px'
                     }}
                 >
                     {/* EQ Visualizer - Always visible */}
-                    <div style={{ position: 'absolute', top: '30px', right: '30px', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '20px' }}>
+                    <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '20px' }}>
                         {[...Array(4)].map((_, i) => {
-                            // Assign a specific animation to each bar
                             const animName = `eq-${(i % 4) + 1}`;
-                            const duration = 0.5 + Math.random() * 0.4; // randomish duration 0.5-0.9s
+                            const duration = 0.5 + Math.random() * 0.4;
                             return (
                                 <div key={i} className="eq-bar" style={{
                                     animation: isPlaying ? `${animName} ${duration}s infinite ease-in-out` : 'none',
-                                    // Stagger starts slightly so they aren't perfectly synced if durations match
                                     animationDelay: `-${Math.random()}s`,
-                                    height: isPlaying ? undefined : '3px' // Static when paused
+                                    height: isPlaying ? undefined : '3px'
                                 }}></div>
                             );
                         })}
                     </div>
 
-                    <div style={{ marginBottom: '20px' }}>
+                    <div style={{ marginBottom: '20px', paddingRight: '40px' }}>
                         <span style={{ fontSize: '0.85rem', color: '#999', display: 'block', marginBottom: '8px', letterSpacing: '2px' }}>
                             KARTE {String(card.id).padStart(2, '0')}
                         </span>
-                        {/* No Serif */}
                         <h2 style={{ fontSize: '2.2rem', margin: 0, fontWeight: '800' }}>{card.name}</h2>
                     </div>
 
-                    <p style={{ lineHeight: '1.8', color: '#444', fontSize: '1.05rem', minHeight: '100px' }}>
+                    <p style={{ lineHeight: '1.8', color: '#444', fontSize: '1.05rem', minHeight: '80px' }}>
                         {card.description}
                     </p>
 
@@ -253,14 +290,6 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     />
                 </div>
             </div>
-
-            {/* Responsive Mobile Styles */}
-            <style>{`
-                @media (max-width: 1024px) {
-                    .showcase-content { flex-direction: column !important; padding: 60px 20px !important; gap: 40px !important; }
-                    .showcase-card-img { height: 40vh !important; }
-                }
-             `}</style>
         </div>
     );
 };

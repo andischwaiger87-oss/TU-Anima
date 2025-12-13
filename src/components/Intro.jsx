@@ -105,7 +105,7 @@ const Intro = ({ onStart }) => {
                     <div style={{ fontSize: '0.9rem', color: '#999', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '2px' }}>
                         Schritt {currentStep + 1} von {steps.length}
                     </div>
-                    <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>{step.title}</h1>
+                    <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', lineHeight: '1.2' }}>{step.title}</h1>
                     {step.subtitle && <h2 style={{ fontSize: '1.2rem', fontWeight: 'normal', color: '#666' }}>{step.subtitle}</h2>}
                 </div>
 

@@ -63,7 +63,7 @@ const FAQ = ({ onClose }) => {
             </div>
 
             {/* Content */}
-            <div style={{ padding: '0 40px 80px 40px', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+            <div className="faq-content-wrapper" style={{ padding: '0 40px 80px 40px', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
                 <div style={{ background: 'white', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.08)' }}>
                     {faqData.map((item, index) => {
                         const isOpen = openIndex === index;
@@ -72,23 +72,23 @@ const FAQ = ({ onClose }) => {
                                 <button
                                     onClick={() => toggle(index)}
                                     style={{
-                                        width: '100%', padding: '30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                        width: '100%', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                                         background: isOpen ? '#fafafa' : 'white', border: 'none', cursor: 'pointer', textAlign: 'left',
                                         fontSize: '1.25rem', fontWeight: '600', transition: 'background 0.2s', color: 'black'
                                     }}
                                 >
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                         <span style={{
                                             background: 'black', color: 'white', borderRadius: '50%', width: '32px', height: '32px',
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
                                         }}>
                                             {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                                         </span>
-                                        {item.question}
+                                        <span style={{ fontSize: '1rem' }}>{item.question}</span>
                                     </span>
                                 </button>
                                 {isOpen && (
-                                    <div style={{ padding: '0 30px 40px 82px', lineHeight: '1.8', color: '#444', fontSize: '1.1rem', animation: 'fadeIn 0.3s ease-out' }}>
+                                    <div style={{ padding: '0 20px 30px 68px', lineHeight: '1.6', color: '#444', fontSize: '1rem', animation: 'fadeIn 0.3s ease-out' }}>
                                         {item.answer}
                                     </div>
                                 )}
@@ -97,7 +97,12 @@ const FAQ = ({ onClose }) => {
                     })}
                 </div>
             </div>
-            <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+            <style>{`
+                @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+                @media (max-width: 768px) {
+                    .faq-content-wrapper { padding: 0 15px 40px 15px !important; }
+                }
+             `}</style>
         </div>
     );
 };

@@ -154,11 +154,14 @@ const CardSelection = ({ onComplete }) => {
                 position: 'fixed', top: 0, left: 0, width: '100%',
                 background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)',
                 zIndex: 100, padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+                boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+                gap: '20px' // Added gap
             }}>
-                <h2 style={{ margin: 0, fontSize: '1.2rem' }}>TU-Anima Bildertest</h2>
-                <div style={{ fontWeight: '500' }}>{getInstruction()}</div>
-                <button onClick={() => setShowFAQ(true)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><Info /></button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <h2 style={{ margin: 0, fontSize: '1.2rem' }}>TU-Anima Bildertest</h2>
+                    <div style={{ fontWeight: '500', fontSize: '0.9rem', color: '#555' }}>{getInstruction()}</div>
+                </div>
+                <button onClick={() => setShowFAQ(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', flexShrink: 0 }}><Info /></button>
             </div>
 
             {/* Grid */}
