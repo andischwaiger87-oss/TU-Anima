@@ -79,41 +79,105 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 .hover-btn { transition: all 0.2s; }
                 .hover-btn:hover { background: #333 !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important; }
 
+                /* Audio Button Container Default (Desktop) */
+                .audio-btn-container {
+                    margin-top: 30px;
+                }
+                .audio-btn {
+                    width: 100%;
+                    padding: 16px;
+                    background: black;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    border-radius: 4px;
+                }
+
                 /* Responsive Styles */
                 @media (max-width: 1024px) {
                     .showcase-container {
                         flex-direction: column !important;
                         padding: 10px !important;
-                        gap: 20px !important;
+                        gap: 10px !important; /* Reduced gap */
                         overflow-y: auto;
                         justify-content: flex-start !important;
+                        padding-bottom: 100px !important; /* Space for fixed button */
                     }
                     .showcase-card-area {
-                        margin-top: 60px; /* Space for close btn */
+                        margin-top: 50px; /* Space for close btn */
                         width: 100%;
                         height: auto;
                         margin-bottom: 20px;
+                        /* Ensure positioning context for arrows */
+                        position: relative; 
                     }
                     .showcase-card-img {
                         height: auto !important;
                         max-height: 40vh !important;
                         width: auto !important;
-                        max-width: 100%;
+                        max-width: 80% !important; /* Make room for arrows */
+                        margin: 0 auto;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
                     }
+                    /* On mobile, arrows inside the screen */
+                    .showcase-nav-btn {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        z-index: 50;
+                        background: rgba(255,255,255,0.9) !important;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        width: 44px;
+                        height: 44px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                    }
+                    .showcase-nav-prev { left: 0px !important; }
+                    .showcase-nav-next { right: 0px !important; }
+
                     .showcase-info-box {
                         max-width: 100% !important;
                         padding: 20px !important;
                         box-shadow: none !important;
                         background: transparent !important;
+                        text-align: center; /* Center text on mobile */
                     }
-                    .showcase-nav-btn {
-                        background: rgba(255,255,255,0.8) !important;
-                        border-radius: 50%;
-                        width: 40px;
-                        height: 40px;
-                        display: flex;
-                        align-items: center;
+                    .showcase-info-box h2 {
+                        font-size: 1.8rem !important;
+                    }
+                    .showcase-eq-container {
+                        /* Center EQ on mobile */
+                        position: relative !important; 
+                        top: auto !important; right: auto !important;
+                        margin: 0 auto 10px auto;
                         justify-content: center;
+                    }
+
+                    /* Sticky Audio Button */
+                    .audio-btn-container {
+                        position: fixed;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        padding: 20px;
+                        background: rgba(255,255,255,0.95);
+                        backdrop-filter: blur(10px);
+                        border-top: 1px solid #eee;
+                        z-index: 1002;
+                        margin-top: 0;
+                        box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+                    }
+                    .audio-btn {
+                        border-radius: 50px; /* Pillow shape for mobile */
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
                     }
                 }
             `}</style>
@@ -162,7 +226,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 }}
             >
 
-                {/* Left: Card Area */}
+                {/* Left: Card Area w/ Nav */}
                 <div className="showcase-card-area" style={{
                     position: 'relative',
                     zIndex: 10,
@@ -171,8 +235,8 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     justifyContent: 'center',
                     animation: 'slideUp 0.4s ease-out'
                 }}>
-                    <button onClick={goToPrev} className="hover-scale showcase-nav-btn" style={{
-                        position: 'absolute', left: '-60px',
+                    <button onClick={goToPrev} className="hover-scale showcase-nav-btn showcase-nav-prev" style={{
+                        position: 'absolute', left: '-80px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
                         padding: '10px', zIndex: 20
@@ -185,6 +249,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                             padding: '10px',
                             background: 'white',
                             borderRadius: '16px',
+                            // On desktop usage, we keep the shadow. Mobile overrides it.
                             boxShadow: '0 25px 60px -10px rgba(0,0,0,0.2)',
                             transform: 'translateZ(0)',
                             transition: 'transform 0.3s ease'
@@ -205,8 +270,8 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         </div>
                     </div>
 
-                    <button onClick={goToNext} className="hover-scale showcase-nav-btn" style={{
-                        position: 'absolute', right: '-60px',
+                    <button onClick={goToNext} className="hover-scale showcase-nav-btn showcase-nav-next" style={{
+                        position: 'absolute', right: '-80px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
                         padding: '10px', zIndex: 20
@@ -230,8 +295,8 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         borderRadius: '12px'
                     }}
                 >
-                    {/* EQ Visualizer - Always visible */}
-                    <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '20px' }}>
+                    {/* EQ Visualizer */}
+                    <div className="showcase-eq-container" style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '20px' }}>
                         {[...Array(4)].map((_, i) => {
                             const animName = `eq-${(i % 4) + 1}`;
                             const duration = 0.5 + Math.random() * 0.4;
@@ -245,7 +310,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         })}
                     </div>
 
-                    <div style={{ marginBottom: '20px', paddingRight: '40px' }}>
+                    <div style={{ marginBottom: '20px' }}>
                         <span style={{ fontSize: '0.85rem', color: '#999', display: 'block', marginBottom: '8px', letterSpacing: '2px' }}>
                             KARTE {String(card.id).padStart(2, '0')}
                         </span>
@@ -256,25 +321,10 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         {card.description}
                     </p>
 
-                    <div style={{ marginTop: '30px' }}>
+                    <div className="audio-btn-container">
                         <button
                             onClick={toggleAudio}
-                            className="hover-btn"
-                            style={{
-                                width: '100%',
-                                padding: '16px',
-                                background: 'black',
-                                color: 'white',
-                                border: 'none',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '12px',
-                                fontSize: '1rem',
-                                fontWeight: '600',
-                                borderRadius: '4px'
-                            }}
+                            className="hover-btn audio-btn"
                         >
                             {isPlaying ? <Pause size={18} /> : <Play size={18} />}
                             {isPlaying ? 'Pause Audio' : 'Audio abspielen'}

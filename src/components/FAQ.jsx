@@ -47,7 +47,6 @@ const FAQ = ({ onClose }) => {
                 maxWidth: '1000px', margin: '0 auto', width: '100%'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <Grid3x3Icon />
                     <h2 style={{ fontSize: '2.5rem', fontWeight: '700', margin: 0 }}>FAQ & Hilfe</h2>
                 </div>
                 <button onClick={onClose} style={{
