@@ -1,0 +1,42 @@
+:root {
+  /* Colors */
+  --color-bg: #f8f8f8;
+  --color-text: #1a1a1a;
+  --color-primary: #000000;
+  --color-accent: #333333;
+  --color-success: #2e7d32; /* Green for Positive/Check */
+  --color-error: #c62828;   /* Red for Negative/Cross */
+  --color-gold: #ffd700;    /* Gold for Favorites */
+  --color-white: #ffffff;
+  
+  /* Fonts */
+  --font-main: 'DM Sans', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* UI */
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}

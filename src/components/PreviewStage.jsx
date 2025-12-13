@@ -1,0 +1,158 @@
+import React from 'react';
+import { cards } from '../data/cards';
+import { Sparkles, FlaskConical, CheckCircle, XCircle } from 'lucide-react';
+
+const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
+
+    const getCard = (id) => cards.find(c => c.id === id);
+
+    const posFav1 = selectionData?.posFavs?.first ? getCard(selectionData.posFavs.first) : null;
+    const posFav2 = selectionData?.posFavs?.second ? getCard(selectionData.posFavs.second) : null;
+    const negFav1 = selectionData?.negFavs?.first ? getCard(selectionData.negFavs.first) : null;
+    const negFav2 = selectionData?.negFavs?.second ? getCard(selectionData.negFavs.second) : null;
+
+    const renderCard = (card, label, type) => {
+        const isPos = type === 'pos';
+        const color = isPos ? '#10b981' : '#ef4444'; // Green or Red
+        const Icon = isPos ? CheckCircle : XCircle;
+
+        return (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', zIndex: 10 }}>
+                {/* Card Container */}
+                <div style={{
+                    position: 'relative',
+                    width: '200px',
+                    borderRadius: '8px',
+                    background: 'white',
+                    padding: '10px',
+                    boxShadow: `0 20px 50px -10px ${isPos ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}`, // Colored shadow
+                }}>
+                    <img src={card.image} alt={card.name} style={{ width: '100%', display: 'block' }} />
+
+                    {/* Floating Indicator */}
+                    <div style={{
+                        position: 'absolute', top: -10, right: -10,
+                        background: color, color: 'white', borderRadius: '50%',
+                        width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                    }}>
+                        <Icon size={18} />
+                    </div>
+                </div>
+
+                {/* Label - High Contrast */}
+                <span style={{
+                    background: 'black',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '50px',
+                    fontSize: '0.9rem',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                    display: 'flex', alignItems: 'center', gap: '8px'
+                }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: color }}></span>
+                    {label}
+                </span>
+            </div>
+        );
+    };
+
+    return (
+        <div style={{
+            width: '100vw',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // CSS Studio Background
+            background: 'radial-gradient(circle at 50% 30%, #f3f3f3 0%, #d8d8d8 100%)',
+            padding: '40px'
+        }}>
+
+            <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1200px' }}>
+                <h1 style={{ color: 'black', fontSize: '3rem', marginBottom: '10px', fontWeight: '800' }}>Deine Auswahl</h1>
+                <p style={{ color: '#666', marginBottom: '80px', fontSize: '1.2rem' }}>Diese Favoriten formen dein Seelenbild.</p>
+
+                {/* Cards Display */}
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
+                    gap: '40px',
+                    marginBottom: '100px',
+                }}>
+                    {/* Positive Group */}
+                    <div style={{ display: 'flex', gap: '30px' }}>
+                        {posFav1 && renderCard(posFav1, "Positiv 1", 'pos')}
+                        {posFav2 && renderCard(posFav2, "Positiv 2", 'pos')}
+                    </div>
+
+                    <div style={{ width: '2px', background: '#ddd', margin: '0 20px' }}></div>
+
+                    {/* Negative Group */}
+                    <div style={{ display: 'flex', gap: '30px' }}>
+                        {negFav1 && renderCard(negFav1, "Negativ 1", 'neg')}
+                        {negFav2 && renderCard(negFav2, "Negativ 2", 'neg')}
+                    </div>
+                </div>
+
+                {/* Actions */}
+                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+
+                    <button
+                        onClick={onSimulate}
+                        style={{
+                            padding: '15px 30px',
+                            borderRadius: '50px',
+                            border: '2px solid #ddd',
+                            background: 'transparent',
+                            color: '#666',
+                            fontSize: '1rem',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            transition: 'all 0.2s'
+                        }}
+                        onMouseOver={e => { e.target.style.borderColor = 'black'; e.target.style.color = 'black'; }}
+                        onMouseOut={e => { e.target.style.borderColor = '#ddd'; e.target.style.color = '#666'; }}
+                    >
+                        <FlaskConical size={20} />
+                        Simulation (Demo)
+                    </button>
+
+                    <button
+                        onClick={onGenerate}
+                        style={{
+                            padding: '15px 40px',
+                            borderRadius: '50px',
+                            border: 'none',
+                            background: 'black',
+                            color: 'white',
+                            fontSize: '1.2rem',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                            transition: 'transform 0.2s'
+                        }}
+                        onMouseOver={e => e.target.style.transform = 'scale(1.05)'}
+                        onMouseOut={e => e.target.style.transform = 'scale(1)'}
+                    >
+                        <Sparkles size={20} />
+                        Seelenbild offenbaren
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default PreviewStage;

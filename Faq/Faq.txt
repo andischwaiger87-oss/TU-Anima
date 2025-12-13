@@ -1,0 +1,63 @@
+Was ist der TU-Anima Test?
+
+Der Tu-Anima-Bildertest (auch TUA-Test genannt) ist ein sprachfreier Symboltest, der in der tiefenpsychologischen Diagnostik eingesetzt wird. Entwickelt von Dr. Heinrich Reich, besteht er aus 36 Bildkarten mit abstrakten Farb- und Formsymbolen. Die Testperson wählt dabei 6 Karten aus, die sie als sympathisch empfindet, und 6 Karten, die sie als unsympathisch erlebt. ​
+Jede Karte ist mit bestimmten Deutungen verbunden, die auf jahrzehntelanger Erfahrung mit Testpersonen basieren. Durch die Auswahl der Bilder wird ein innerer Dialog zwischen Symbol und Seele angeregt, der Zugang zu tiefen Schichten des Unbewussten ermöglicht. Dies kann helfen, unbewusste Prozesse, Verhaltensmuster und emotionale Themen zu erkennen, die für die psychologische Beratung oder Therapie von Bedeutung sind. ​
+
+
+
+
+Wie wird der Test durchgeführt?
+
+
+Der Tu-Anima-Bildertest besteht aus 36 abstrakten Symbolkarten. Im Verlauf des Tests wählen Sie 6 Karten aus, die Sie als sympathisch empfinden, und 6 Karten, die Sie als unsympathisch empfinden; die übrigen 24 Karten bleiben unberücksichtigt.
+Die sympathisch gewählten Karten werden dabei mit einem grünen Haken markiert, die unsympathisch empfundenen Karten mit einem roten Kreuz.
+Anschließend bestimmen Sie jeweils eine Karte mit der stärksten (1. Favorit) und eine mit der zweitstärksten (2. Favorit) emotionalen Resonanz – sowohl im positiven als auch im negativen Bereich.
+
+
+
+
+
+Wie benutze ich die App?
+
+
+1. Überblick & Navigation
+    Start: Sie beginnen mit der Übersicht aller 36 Tu-Anima-Karten.
+    
+Linke Seitenleiste:
+         
+     
+
+2. Karten auswählen & markieren
+    Sympathie & Antipathie
+Bewegen Sie den Mauszeiger über eine beliebige Karte. Es erscheinen Auswahlmöglichkeiten:
+
+
+➡️ Sie dürfen jeweils 6 Karten positiv und negativ markieren (insgesamt 12 Karten).
+    Favoriten festlegen
+Pro Bereich (positiv/negativ) wählen Sie zusätzlich einen 1. Favoriten und 2. Favoriten per Klick auf die Sternsymbole.
+
+3. Karten vergrößern & Bedeutung einsehen
+    Einzelansicht
+Mit Klick auf eine Karte wird diese vergrößert angezeigt. Nutzen Sie die Pfeile, um zwischen den Karten zu blättern.
+    Deutung & Symbolik
+In der vergrößerten Ansicht sehen Sie rechts oben ein Info-Symbol (i). Darüber erhalten Sie eine kurze Beschreibung zur Bedeutung der Karte.
+⚠️ Hinweis: Rufen Sie die Bedeutungen erst nach Abschluss Ihrer Auswahl auf – sonst kann das Ergebnis beeinflusst werden.
+    Sprachausgabe
+In der Kartenbeschreibung befindet sich eine Vorlesefunktion für die Symbolik.
+    Zurück zur Übersicht
+Über das Kachel-Symbol oben links kehren Sie jederzeit zur Gesamtauswahl zurück.
+
+
+
+
+Auf welchen Geräten ist die App nutzbar?
+
+Der Test ist Full-Responsive und läuft auf allen gängigen Geräten.
+
+
+
+
+
+
+
+
