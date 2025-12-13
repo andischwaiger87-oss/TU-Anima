@@ -99,70 +99,95 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     border-radius: 4px;
                 }
 
+                /* Mobile Controls (Hidden on Desktop) */
+                .mobile-controls {
+                    display: none;
+                }
+                
+                /* Desktop Controls (Hidden on Mobile) */
+                .desktop-only-btn {
+                    display: flex;
+                }
+
+
                 /* Responsive Styles */
                 @media (max-width: 1024px) {
                     .showcase-container {
                         flex-direction: column !important;
                         padding: 10px !important;
-                        gap: 10px !important; /* Reduced gap */
+                        gap: 10px !important;
                         overflow-y: auto;
                         justify-content: flex-start !important;
-                        padding-bottom: 100px !important; /* Space for fixed button */
+                        padding-bottom: 120px !important; /* Space for fixed button */
                     }
                     .showcase-card-area {
                         margin-top: 50px; /* Space for close btn */
                         width: 100%;
                         height: auto;
                         margin-bottom: 20px;
-                        /* Ensure positioning context for arrows */
-                        position: relative; 
+                        /* No relative positioning here for arrows anymore, they are global */
                     }
                     .showcase-card-img {
                         height: auto !important;
-                        max-height: 40vh !important;
+                        max-height: 50vh !important; /* Made larger as requested */
                         width: auto !important;
-                        max-width: 80% !important; /* Make room for arrows */
+                        max-width: 90% !important; /* Made wider */
                         margin: 0 auto;
                         box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
                     }
-                    /* On mobile, arrows inside the screen */
+                    
+                    /* Hide Desktop Nav Buttons */
                     .showcase-nav-btn {
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        z-index: 50;
-                        background: rgba(255,255,255,0.9) !important;
-                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                        width: 44px;
-                        height: 44px;
+                        display: none !important;
+                    }
+                    
+                    /* Show Mobile Nav Controls */
+                    .mobile-controls {
+                        display: block;
+                    }
+
+                    .mobile-nav-btn {
+                        position: fixed;
+                        top: 40%; /* Fixed vertical position */
+                        z-index: 1050; /* Above everything */
+                        background: rgba(255,255,255,0.9);
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+                        width: 48px;
+                        height: 48px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         border-radius: 50%;
+                        border: none;
+                        color: black;
                     }
-                    .showcase-nav-prev { left: 0px !important; }
-                    .showcase-nav-next { right: 0px !important; }
+                    .mobile-prev { left: 10px; }
+                    .mobile-next { right: 10px; }
+
 
                     .showcase-info-box {
                         max-width: 100% !important;
                         padding: 20px !important;
                         box-shadow: none !important;
                         background: transparent !important;
-                        text-align: center; /* Center text on mobile */
+                        text-align: left !important; /* Left aligned as requested */
                     }
                     .showcase-info-box h2 {
                         font-size: 1.8rem !important;
                     }
                     .showcase-eq-container {
-                        /* Center EQ on mobile */
-                        position: relative !important; 
-                        top: auto !important; right: auto !important;
-                        margin: 0 auto 10px auto;
-                        justify-content: center;
+                        /* Right aligned on mobile as per design, or absolute top right of info box */
+                        position: absolute !important; 
+                        top: 20px !important; right: 20px !important;
+                    }
+                    
+                    /* Hide sticky button inside content */
+                    .audio-btn-container .audio-btn {
+                        display: none; 
                     }
 
-                    /* Sticky Audio Button */
-                    .audio-btn-container {
+                    /* Sticky Audio Button Global */
+                    .mobile-audio-btn-container {
                         position: fixed;
                         bottom: 0;
                         left: 0;
@@ -171,12 +196,23 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         background: rgba(255,255,255,0.95);
                         backdrop-filter: blur(10px);
                         border-top: 1px solid #eee;
-                        z-index: 1002;
-                        margin-top: 0;
+                        z-index: 2000;
                         box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+                        display: block !important;
                     }
-                    .audio-btn {
-                        border-radius: 50px; /* Pillow shape for mobile */
+                    .mobile-audio-btn {
+                        width: 100%;
+                        padding: 16px;
+                        background: black;
+                        color: white;
+                        border: none;
+                        border-radius: 50px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
                         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
                     }
                 }
@@ -207,6 +243,24 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 <X size={24} />
             </button>
 
+            {/* Mobile Fixed Controls */}
+            <div className="mobile-controls">
+                <button onClick={goToPrev} className="mobile-nav-btn mobile-prev">
+                    <ChevronLeft size={28} />
+                </button>
+                <button onClick={goToNext} className="mobile-nav-btn mobile-next">
+                    <ChevronRight size={28} />
+                </button>
+
+                {/* Mobile Sticky Audio Button */}
+                <div className="mobile-audio-btn-container" style={{ display: 'none' }}>
+                    <button onClick={toggleAudio} className="mobile-audio-btn">
+                        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                        {isPlaying ? 'Pause Audio' : 'Audio abspielen'}
+                    </button>
+                </div>
+            </div>
+
             {/* Main Content Container */}
             <div
                 ref={contentRef}
@@ -226,8 +280,8 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                 }}
             >
 
-                {/* Left: Card Area w/ Nav */}
-                <div className="showcase-card-area" style={{
+                {/* Left: Card Area (Animates SlideUp) */}
+                <div className="showcase-card-area" key={`card-img-${currentIndex}`} style={{
                     position: 'relative',
                     zIndex: 10,
                     display: 'flex',
@@ -235,7 +289,8 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     justifyContent: 'center',
                     animation: 'slideUp 0.4s ease-out'
                 }}>
-                    <button onClick={goToPrev} className="hover-scale showcase-nav-btn showcase-nav-prev" style={{
+                    {/* Desktop Nav Buttons */}
+                    <button onClick={goToPrev} className="hover-scale showcase-nav-btn" style={{
                         position: 'absolute', left: '-80px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
@@ -249,7 +304,6 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                             padding: '10px',
                             background: 'white',
                             borderRadius: '16px',
-                            // On desktop usage, we keep the shadow. Mobile overrides it.
                             boxShadow: '0 25px 60px -10px rgba(0,0,0,0.2)',
                             transform: 'translateZ(0)',
                             transition: 'transform 0.3s ease'
@@ -270,7 +324,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         </div>
                     </div>
 
-                    <button onClick={goToNext} className="hover-scale showcase-nav-btn showcase-nav-next" style={{
+                    <button onClick={goToNext} className="hover-scale showcase-nav-btn" style={{
                         position: 'absolute', right: '-80px',
                         background: 'transparent', border: 'none',
                         cursor: 'pointer', color: 'black', opacity: 0.6,
@@ -280,9 +334,9 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                     </button>
                 </div>
 
-                {/* Right: Info Box */}
+                {/* Right: Info Box (Animates SlideUp) */}
                 <div
-                    key={card.id}
+                    key={`card-info-${currentIndex}`}
                     className="showcase-info-box"
                     style={{
                         background: 'white',
@@ -310,7 +364,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         })}
                     </div>
 
-                    <div style={{ marginBottom: '20px' }}>
+                    <div style={{ marginBottom: '20px', paddingRight: '40px' }}>
                         <span style={{ fontSize: '0.85rem', color: '#999', display: 'block', marginBottom: '8px', letterSpacing: '2px' }}>
                             KARTE {String(card.id).padStart(2, '0')}
                         </span>
@@ -321,7 +375,7 @@ const CardShowcase = ({ card: initialCard, onClose }) => {
                         {card.description}
                     </p>
 
-                    <div className="audio-btn-container">
+                    <div className="audio-btn-container controls-desktop">
                         <button
                             onClick={toggleAudio}
                             className="hover-btn audio-btn"
