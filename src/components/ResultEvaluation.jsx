@@ -130,18 +130,31 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
 
     if (result) {
         return (
-            <div style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div className="result-container" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <style>{`
+                    @media (max-width: 768px) {
+                        .result-container { padding: 20px 10px !important; }
+                        .result-card-inner { padding: 20px !important; }
+                        .result-header h1 { font-size: 2rem !important; }
+                        .result-content { gap: 30px !important; }
+                        /* Compact Layout: Make image smaller on mobile */
+                        .result-img-wrapper { max-width: 250px !important; }
+                        .result-actions { flex-direction: column; width: 100%; }
+                        .result-actions button { width: 100%; justify-content: center; }
+                    }
+                `}</style>
+
                 {/* PDF Content Area */}
-                <div ref={resultRef} style={{ background: 'white', padding: '40px', borderRadius: '8px', width: '100%' }}>
-                    <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                <div ref={resultRef} className="result-card-inner" style={{ background: 'white', padding: '40px', borderRadius: '8px', width: '100%' }}>
+                    <div className="result-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
                         <h1 style={{ marginBottom: '10px' }}>Deine Seelenkarte</h1>
                         <p style={{ color: '#666' }}>TU-Anima Bildertest Ergebnis</p>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center', width: '100%' }}>
+                    <div className="result-content" style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center', width: '100%' }}>
 
                         {/* Image - Portrait - Smaller Width requested */}
-                        <div style={{ width: '100%', maxWidth: '400px', margin: '0 auto' }}>
+                        <div className="result-img-wrapper" style={{ width: '100%', maxWidth: '400px', margin: '0 auto', transition: 'max-width 0.3s' }}>
                             <div style={{
                                 width: '100%',
                                 // Removing 100% padding bottom to allow natural height or changing aspect ratio
@@ -164,7 +177,8 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                             <h3 style={{ fontSize: '1.2rem', color: '#666', borderBottom: '1px solid #eee', paddingBottom: '15px', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '2px' }}>
                                 {isSimulation ? "DEMO ANALYSE (Simulation):" : "Deine Persönliche Analyse:"}
                             </h3>
-                            <div style={{ lineHeight: '1.8', whiteSpace: 'pre-wrap', color: '#333', fontSize: '1.1rem', textAlign: 'justify' }}>
+                            {/* CHANGED: textAlign: 'left' from 'justify' */}
+                            <div style={{ lineHeight: '1.8', whiteSpace: 'pre-wrap', color: '#333', fontSize: '1.1rem', textAlign: 'left' }}>
                                 {result.interpretation}
                             </div>
                         </div>
@@ -176,7 +190,7 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                 </div>
 
                 {/* Actions - Outside PDF Area */}
-                <div style={{ marginTop: '40px', display: 'flex', gap: '20px' }}>
+                <div className="result-actions" style={{ marginTop: '40px', display: 'flex', gap: '20px' }}>
                     <button
                         onClick={downloadPDF}
                         style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 24px', background: 'black', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontSize: '1rem' }}

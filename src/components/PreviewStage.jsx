@@ -17,7 +17,7 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
         const Icon = isPos ? CheckCircle : XCircle;
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', zIndex: 10 }}>
+            <div className="preview-card-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', zIndex: 10 }}>
                 {/* Card Container */}
                 <div style={{
                     position: 'relative',
@@ -72,13 +72,26 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
             background: 'radial-gradient(circle at 50% 30%, #f3f3f3 0%, #d8d8d8 100%)',
             padding: '40px'
         }}>
+            <style>{`
+                @media (max-width: 768px) {
+                    .preview-header h1 { font-size: 2rem !important; }
+                    .preview-header p { font-size: 1rem !important; margin-bottom: 40px !important; }
+                    .preview-grid { flex-direction: column; gap: 40px !important; margin-bottom: 60px !important; }
+                    .preview-group { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px !important; }
+                    .preview-actions { flex-direction: column; width: 100%; }
+                    .preview-actions button { width: 100%; justify-content: center; }
+                    .preview-divider { display: none !important; }
+                    
+                    /* Make card items scaled down slightly on small selection if needed, but 200px is okay-ish. */
+                }
+            `}</style>
 
-            <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1200px' }}>
+            <div className="preview-header" style={{ position: 'relative', zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1200px' }}>
                 <h1 style={{ color: 'black', fontSize: '3rem', marginBottom: '10px', fontWeight: '800' }}>Deine Auswahl</h1>
                 <p style={{ color: '#666', marginBottom: '80px', fontSize: '1.2rem' }}>Diese Favoriten formen dein Seelenbild.</p>
 
                 {/* Cards Display */}
-                <div style={{
+                <div className="preview-grid" style={{
                     display: 'flex',
                     justifyContent: 'center',
                     flexWrap: 'wrap',
@@ -86,22 +99,22 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                     marginBottom: '100px',
                 }}>
                     {/* Positive Group */}
-                    <div style={{ display: 'flex', gap: '30px' }}>
+                    <div className="preview-group" style={{ display: 'flex', gap: '30px' }}>
                         {posFav1 && renderCard(posFav1, "Positiv 1", 'pos')}
                         {posFav2 && renderCard(posFav2, "Positiv 2", 'pos')}
                     </div>
 
-                    <div style={{ width: '2px', background: '#ddd', margin: '0 20px' }}></div>
+                    <div className="preview-divider" style={{ width: '2px', background: '#ddd', margin: '0 20px' }}></div>
 
                     {/* Negative Group */}
-                    <div style={{ display: 'flex', gap: '30px' }}>
+                    <div className="preview-group" style={{ display: 'flex', gap: '30px' }}>
                         {negFav1 && renderCard(negFav1, "Negativ 1", 'neg')}
                         {negFav2 && renderCard(negFav2, "Negativ 2", 'neg')}
                     </div>
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                <div className="preview-actions" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
 
                     <button
                         onClick={onSimulate}
