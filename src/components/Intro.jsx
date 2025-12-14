@@ -87,18 +87,26 @@ const Intro = ({ onStart }) => {
             textAlign: 'center',
             animation: 'fadeIn 0.5s ease-out'
         }}>
-            <div style={{
+            <div className="intro-card" style={{
                 maxWidth: '600px',
                 width: '100%',
                 background: 'white',
                 padding: '40px',
                 borderRadius: '32px',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.05)',
-                minHeight: '400px',
+                minHeight: '450px', // Fixed min-height for stability
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between'
             }}>
+                <style>{`
+                    @media (max-width: 768px) {
+                        .intro-card {
+                            padding: 24px !important; /* Reduced padding on mobile */
+                            min-height: 500px !important; /* Taller min-height on mobile to prevent jumps */
+                        }
+                    }
+                `}</style>
 
                 {/* Header */}
                 <div>

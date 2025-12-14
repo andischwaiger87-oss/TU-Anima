@@ -61,7 +61,7 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
 
     return (
         <div style={{
-            width: '100vw',
+            width: '100%', // Changed from 100vw to prevent horizontal scroll
             minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
@@ -69,7 +69,8 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
             justifyContent: 'center',
             // CSS Studio Background
             background: 'radial-gradient(circle at 50% 30%, #f3f3f3 0%, #d8d8d8 100%)',
-            padding: '40px'
+            padding: '40px 20px', // Adjusted padding
+            boxSizing: 'border-box'
         }}>
             <style>{`
                 /* Desktop Defaults */
