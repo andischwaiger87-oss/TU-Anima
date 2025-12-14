@@ -18,10 +18,9 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
 
         return (
             <div className="preview-card-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', zIndex: 10 }}>
-                {/* Card Container */}
-                <div style={{
+                {/* Card Container - Width Controlled by CSS */}
+                <div className="preview-card-wrapper" style={{
                     position: 'relative',
-                    width: '200px',
                     borderRadius: '8px',
                     background: 'white',
                     padding: '10px',
@@ -41,7 +40,7 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                 </div>
 
                 {/* Label - High Contrast */}
-                <span style={{
+                <span className="preview-card-label" style={{
                     background: 'black',
                     color: 'white',
                     padding: '8px 16px',
@@ -73,16 +72,48 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
             padding: '40px'
         }}>
             <style>{`
+                /* Desktop Defaults */
+                .preview-card-wrapper { width: 200px; }
+
                 @media (max-width: 768px) {
                     .preview-header h1 { font-size: 2rem !important; }
                     .preview-header p { font-size: 1rem !important; margin-bottom: 40px !important; }
-                    .preview-grid { flex-direction: column; gap: 40px !important; margin-bottom: 60px !important; }
-                    .preview-group { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px !important; }
+                    
+                    /* Stack the Positive and Negative Groups vertically, BUT keep cards inside them side-by-side */
+                    .preview-grid { flex-direction: column; gap: 40px !important; margin-bottom: 120px !important; /* Extra margin for sticky button */ }
+                    
+                    /* Ensure cards are side by side on mobile */
+                    .preview-group { 
+                        flex-direction: row !important; 
+                        flex-wrap: nowrap !important; /* Force single row */
+                        justify-content: center; 
+                        gap: 15px !important; 
+                    }
+                    
+                    /* Resize cards to fit side by side */
+                    .preview-card-wrapper { 
+                        width: 42vw !important; /* Ensure 2 fit */
+                        max-width: 160px;
+                        padding: 6px !important;
+                    }
+                    .preview-card-label {
+                        font-size: 0.75rem !important;
+                        padding: 6px 12px !important;
+                    }
+
                     .preview-actions { flex-direction: column; width: 100%; }
                     .preview-actions button { width: 100%; justify-content: center; }
                     .preview-divider { display: none !important; }
                     
-                    /* Make card items scaled down slightly on small selection if needed, but 200px is okay-ish. */
+                    /* Hide valid desktop button on mobile */
+                    .btn-reveal-desktop { display: none !important; }
+                    
+                    /* Show sticky button on mobile */
+                    .btn-reveal-mobile-container { display: flex !important; }
+                }
+
+                @media (min-width: 769px) {
+                    .btn-reveal-mobile-container { display: none !important; }
                 }
             `}</style>
 
@@ -129,7 +160,8 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '10px',
-                            transition: 'all 0.2s'
+                            transition: 'all 0.2s',
+                            marginBottom: '20px' // Spacer for mobile scrolling
                         }}
                         onMouseOver={e => { e.target.style.borderColor = 'black'; e.target.style.color = 'black'; }}
                         onMouseOut={e => { e.target.style.borderColor = '#ddd'; e.target.style.color = '#666'; }}
@@ -138,7 +170,9 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                         Simulation (Demo)
                     </button>
 
+                    {/* Desktop Reveal Button */}
                     <button
+                        className="btn-reveal-desktop"
                         onClick={onGenerate}
                         style={{
                             padding: '15px 40px',
@@ -163,6 +197,45 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                     </button>
 
                 </div>
+            </div>
+
+            {/* Mobile Sticky Reveal Button */}
+            <div className="btn-reveal-mobile-container" style={{
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                padding: '20px',
+                background: 'rgba(255,255,255,0.95)',
+                backdropFilter: 'blur(10px)',
+                borderTop: '1px solid #eee',
+                zIndex: 1000,
+                boxShadow: '0 -5px 20px rgba(0,0,0,0.05)',
+                display: 'none', // Hidden on desktop
+                justifyContent: 'center'
+            }}>
+                <button
+                    onClick={onGenerate}
+                    style={{
+                        width: '100%',
+                        padding: '16px',
+                        background: 'black',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50px',
+                        fontSize: '1.1rem',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        boxShadow: '0 5px 15px rgba(0,0,0,0.3)'
+                    }}
+                >
+                    <Sparkles size={20} />
+                    Seelenbild offenbaren
+                </button>
             </div>
         </div>
     );

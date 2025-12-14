@@ -148,7 +148,17 @@ const CardSelection = ({ onComplete }) => {
     };
 
     return (
-        <div style={{ padding: '80px 20px 100px 20px', maxWidth: '1400px', margin: '0 auto' }}>
+        <div className="selection-container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <style>{`
+                .selection-container {
+                    padding: 80px 20px 100px 20px;
+                }
+                @media (max-width: 768px) {
+                    .selection-container {
+                        padding-top: 130px; /* Increased from 80px for mobile header */
+                    }
+                }
+            `}</style>
             {/* Header */}
             <div style={{
                 position: 'fixed', top: 0, left: 0, width: '100%',
