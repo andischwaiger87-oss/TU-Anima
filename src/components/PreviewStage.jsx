@@ -148,29 +148,6 @@ const PreviewStage = ({ selectionData, onGenerate, onSimulate }) => {
                 {/* Actions */}
                 <div className="preview-actions" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
 
-                    <button
-                        onClick={onSimulate}
-                        style={{
-                            padding: '15px 30px',
-                            borderRadius: '50px',
-                            border: '2px solid #ddd',
-                            background: 'transparent',
-                            color: '#666',
-                            fontSize: '1rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px',
-                            transition: 'all 0.2s',
-                            marginBottom: '20px' // Spacer for mobile scrolling
-                        }}
-                        onMouseOver={e => { e.target.style.borderColor = 'black'; e.target.style.color = 'black'; }}
-                        onMouseOut={e => { e.target.style.borderColor = '#ddd'; e.target.style.color = '#666'; }}
-                    >
-                        <FlaskConical size={20} />
-                        Simulation (Demo)
-                    </button>
-
                     {/* Desktop Reveal Button */}
                     <button
                         className="btn-reveal-desktop"
