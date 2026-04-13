@@ -1,15 +1,9 @@
 import { cards } from '../data/cards';
 
 const API_KEY_STORAGE = 'tuanima_openai_key';
-
-// Zugriff auf Cloudflare/Vite Environment Variable
 const ENV_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-export const getApiKey = () => {
-    const localKey = localStorage.getItem(API_KEY_STORAGE);
-    return localKey || ENV_API_KEY;
-};
-
+export const getApiKey = () => localStorage.getItem(API_KEY_STORAGE) || ENV_API_KEY;
 export const setApiKey = (key) => localStorage.setItem(API_KEY_STORAGE, key);
 
 export const generateSoulCard = async (selectionData) => {
@@ -17,42 +11,41 @@ export const generateSoulCard = async (selectionData) => {
     if (!apiKey) throw new Error("API Key missing");
 
     // --- START LOGGING ---
-    console.group("🚀 TU-Anima: OpenAI API Prozess");
+    console.group("🚀 TU-Anima: Authentischer Seelenbild-Prozess");
     console.time("⏱️ Gesamtdauer der KI-Generierung");
-    console.log("🔍 Starte Analyse für Auswahl:", selectionData);
-    // ---------------------
+    
+    // Namen der Karten für die Analyse extrahieren
+    const posFav1 = cards.find(c => c.id === selectionData.posFavs.first)?.name || "Licht";
+    const posFav2 = cards.find(c => c.id === selectionData.posFavs.second)?.name || "Energie";
+    const negFav1 = cards.find(c => c.id === selectionData.negFavs.first)?.name || "Schatten";
 
-    // 1. Prepare Prompt
-    const posNames = selectionData.posCards.map(id => cards.find(c => c.id === id).name).join(', ');
-    const negNames = selectionData.negCards.map(id => cards.find(c => c.id === id).name).join(', ');
+    // Der psychologische und künstlerische Auftrag an GPT-4o
+    const systemPrompt = `Du bist ein Kunstexperte und Psychologe für das TU-Anima Projekt. 
+    Deine Aufgabe ist es, eine Auswahl von Archetypen zu analysieren und eine visuelle Vision im spezifischen TU-Anima-Stil zu entwerfen.
 
-    const posFav1 = cards.find(c => c.id === selectionData.posFavs.first)?.name;
-    const posFav2 = cards.find(c => c.id === selectionData.posFavs.second)?.name;
+    STIL-DEFINITION (TU-Anima nach Dr. Heinrich Reich):
+    - Abstrakt, gegenstandslos, psycho-ästhetisch.
+    - Inspiriert von archaischen Höhlenmalereien (Altamira), Runenformen und Zen-Kalligraphie.
+    - Medium: Schwere Ölmalerei oder Mischtechnik auf grober, texturierter Leinwand.
+    - Keine digitalen Glanzeffekte, keine fotorealistischen Objekte. 
+    - Organische Fließstrukturen, Kratzspuren, erdige und tiefe Farbschichten.
+    - Die Symbole sollen als "energetische Essenz" dargestellt werden, nicht als reale Objekte.
 
-    const negFav1 = cards.find(c => c.id === selectionData.negFavs.first)?.name;
-    const negFav2 = cards.find(c => c.id === selectionData.negFavs.second)?.name;
+    ANALYSE-OBJEKTE:
+    Ressourcen (Licht): ${posFav1} und ${posFav2}
+    Blockade (Schatten): ${negFav1}
 
-    const systemPrompt = `Du bist ein psychologischer Analyst für das TU-Anima Projekt.
-  Analysiere die Kartenauswahl.
-  Ausgewählte Positive Karten: ${posNames}
-  Ausgewählte Negative Karten: ${negNames}
-  
-  WICHTIGSTE KARTEN (Favoriten):
-  Positiv 1: ${posFav1}
-  Positiv 2: ${posFav2}
-  Negativ 1: ${negFav1}
-  Negativ 2: ${negFav2}
-  
-  Erstelle eine tiefgründige, psychologische Interpretation (ca. 300 Wörter) auf Basis dieser Symbolik.
-  Fokussiere dich auf Ressourcen (Positiv) und Blockaden/Konflikte (Negativ).`;
-
-    // --- LOG TEXT API ---
-    console.log("📝 Schritt 1: Sende Text-Anfrage an GPT-4o...");
-    console.time("⏱️ Dauer Text-API");
-    // --------------------
+    ANTWORTE STRENG IM JSON-FORMAT:
+    {
+      "interpretation": "Deine ca. 300 Wörter tiefe, psychologische Analyse auf Deutsch...",
+      "visual_prompt": "A sophisticated English prompt for DALL-E 3: An abstract expressionist oil painting on raw canvas. Focus on archaic, primitive symbolic shapes and organic energy flows. Integrate the essences of ${posFav1} and ${posFav2} as luminous centers of energy, contrasting with the dark, jagged or heavy texture of ${negFav1}. Use earthy tones, deep crimsons, and raw umber mixed with vibrant light. No literal objects, pure symbolic abstraction, heavy impasto texture."
+    }`;
 
     try {
-        // 2. Call Text API (GPT-4o)
+        // SCHRITT 1: GPT-4o entwirft die Analyse und den Bild-Prompt
+        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft Bild-Vision...");
+        console.time("⏱️ Dauer GPT-4o");
+        
         const textResponse = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -62,35 +55,21 @@ export const generateSoulCard = async (selectionData) => {
             body: JSON.stringify({
                 model: "gpt-4o",
                 messages: [{ role: "system", content: systemPrompt }],
+                response_format: { type: "json_object" },
                 temperature: 0.7
             })
         });
 
-        if (!textResponse.ok) {
-            const errorText = await textResponse.text();
-            console.error("❌ Fehler bei der Text-Generierung!", errorText);
-            throw new Error(`Text API Error: ${textResponse.status}`);
-        }
-        
+        if (!textResponse.ok) throw new Error(`Text API Error: ${textResponse.status}`);
         const textData = await textResponse.json();
+        const resultJson = JSON.parse(textData.choices[0].message.content);
         
-        // --- LOG TEXT RESULT ---
-        console.timeEnd("⏱️ Dauer Text-API");
-        console.log("✅ Text erfolgreich generiert!");
-        console.log("🧠 Verwendetes Text-Modell (von API bestätigt):", textData.model);
-        console.log("📊 Verbrauchte Tokens:", textData.usage);
-        // -----------------------
+        console.timeEnd("⏱️ Dauer GPT-4o");
+        console.log("📝 GPT-4o Bild-Prompt:", resultJson.visual_prompt);
 
-        const interpretation = textData.choices[0].message.content;
-
-        // 3. Call Image API (DALL-E 3)
-        const imagePrompt = `Abstract surrealistic soul card art. Psychological symbolism: ${posFav1} and ${posFav2} (light/positive aspects) contrasting with ${negFav1} (shadow aspects). Artistic style: Modern abstract expressionism, vibrant colors, premium texture.`;
-
-        // --- LOG IMAGE API ---
-        console.log("🎨 Schritt 2: Sende Bild-Anfrage an DALL-E 3...");
-        console.log("🖼️ Verwendeter Bild-Prompt:", imagePrompt);
-        console.time("⏱️ Dauer Bild-API");
-        // ---------------------
+        // SCHRITT 2: DALL-E 3 setzt die Vision von GPT-4o um
+        console.log("🎨 Schritt 2: DALL-E 3 malt das Seelenbild (Base64)...");
+        console.time("⏱️ Dauer DALL-E 3");
 
         const imageResponse = await fetch('https://api.openai.com/v1/images/generations', {
             method: 'POST',
@@ -100,37 +79,31 @@ export const generateSoulCard = async (selectionData) => {
             },
             body: JSON.stringify({
                 model: "dall-e-3",
-                prompt: imagePrompt,
+                prompt: resultJson.visual_prompt,
                 n: 1,
                 size: "1024x1792",
                 quality: "hd",
-                style: "vivid",
+                style: "natural", // 'natural' sorgt für einen weniger 'ki-artigen', künstlerischen Look
                 response_format: "b64_json"
             })
         });
 
-        if (!imageResponse.ok) {
-            const errorImage = await imageResponse.text();
-            console.error("❌ Fehler bei der Bild-Generierung!", errorImage);
-            throw new Error(`Image API Error: ${imageResponse.status}`);
-        }
-        
+        if (!imageResponse.ok) throw new Error(`Image API Error: ${imageResponse.status}`);
         const imageData = await imageResponse.json();
 
-        // --- LOG IMAGE RESULT ---
-        console.timeEnd("⏱️ Dauer Bild-API");
-        console.log("✅ Bild erfolgreich generiert! (Modell: DALL-E 3)");
+        // --- FINAL LOGS ---
+        console.timeEnd("⏱️ Dauer DALL-E 3");
         console.timeEnd("⏱️ Gesamtdauer der KI-Generierung");
+        console.log("✅ Prozess erfolgreich abgeschlossen.");
         console.groupEnd();
-        // ------------------------
 
         return {
-            interpretation,
+            interpretation: resultJson.interpretation,
             imageUrl: `data:image/png;base64,${imageData.data[0].b64_json}`
         };
 
     } catch (error) {
-        console.error("🚨 Kritischer Fehler im generateSoulCard Prozess:", error);
+        console.error("🚨 Fehler im TU-Anima Generierungsprozess:", error);
         console.groupEnd();
         throw error;
     }
