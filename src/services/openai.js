@@ -45,14 +45,12 @@ export const generateSoulCard = async (selectionData) => {
 
     // 4. DER NEUE, STRUKTURIERTE SYSTEM-PROMPT
     const systemPrompt = `Du bist ein hochqualifizierter Tiefenpsychologe nach der Lehre von Dr. Heinrich Reich (TU-Anima Bildertest). 
-    Deine Aufgabe ist eine hochgradig individuelle, differenzierte und strukturierte Falldiagnose des Testanden.
+    Deine Aufgabe ist eine hochgradig individuelle, differenzierte und strukturierte Falldiagnose des Testanden sowie der Entwurf eines präzisen Bild-Prompts.
 
     VERBOTENE FLOSKELN (STRIKT VERMEIDEN!):
     - "In der psychologischen Analyse..."
     - "Psychologisch gesehen..."
     - "Zusammenfassend lässt sich sagen..."
-    - "Dieses Zusammenspiel fordert den Menschen auf..."
-    - "Gemeinsam strahlen sie eine Kraft aus..."
     -> Verwende NIEMALS standardisierte KI-Einleitungen oder -Schlusssätze. Steig sofort klinisch und tiefgründig in die Diagnose ein.
 
     === PSYCHOLOGISCHE DATEN DES TESTANDEN ===
@@ -73,35 +71,29 @@ export const generateSoulCard = async (selectionData) => {
 
     === DEIN AUFTRAG ===
     
-    1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose. Nutze ZWINGEND die originalen Bedeutungen von Dr. Reich. 
+    1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose anhand der Daten.
     Strukturiere deinen Text zwingend mit folgenden Markdown-Überschriften und schreibe präzise, analytisch und erwachsen:
-
-    **Zentrale Seelendynamik**
-    (Analyse der positiven Favoriten als treibende Lebenskraft)
+    **Zentrale Seelendynamik** (Analyse der positiven Favoriten)
+    **Abwehr und Blockaden** (Tiefenanalyse des negativen Favoriten)
+    **Innere Spannungsfelder** (Analyse der Ambivalenzen / Reibung zwischen Ressourcen und Abwehr)
+    **Diagnostischer Ausblick** (Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)
     
-    **Abwehr und Blockaden**
-    (Tiefenanalyse des negativen Favoriten und der generellen Verdrängung)
-    
-    **Innere Spannungsfelder**
-    (Analyse der Ambivalenzen, insbesondere falls die strukturelle Dynamik oben Konflikte zeigt. Ansonsten die Reibung zwischen Ressourcen und Abwehr)
-    
-    **Diagnostischer Ausblick**
-    (Ein prägnanter, therapeutischer Blick auf die aktuelle Entwicklungsaufgabe, ohne esoterische Kalendersprüche)
-    
-    2. VISUAL DESCRIPTION: 
-    - Abstrakt, gegenstandslos, psycho-ästhetisch.
-    - Inspiriert von archaischen Höhlenmalereien (Altamira), Runenformen und Zen-Kalligraphie.
-    - Medium: Schwere Ölmalerei auf grober Leinwand.
-    - Keine digitalen Glanzeffekte, keine fotorealistischen Objekte. 
+    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
+    Übersetze die psychologische Dynamik in ein abstraktes Bild, aber halte dich STRIKT an diesen visuellen Stil:
+    - LINIEN: Dicke, dunkle, schwungvolle Konturlinien (Cloisonnismus-Stil). Hieroglyphenartige, reduzierte Formen.
+    - FARBEN: Expressiv, flächig, ungemischt (keine Verläufe!). Hoher Kontrast, leuchtende Primärfarben (viel intensives Gelb, Rot, Blau).
+    - KOMPOSITION: Strikt 2D (keine Perspektive, keine 3D-Effekte, keine Schattierungen). Zentrierte Energie.
+    - TEXTUR: Spuren von Gouache, dicker Pastellkreide oder Tusche auf rauem Papier. KEINE Ölgemälde-Spachteltechnik (no impasto)!
+    - KUNST-STIL: Expressionismus (Kandinsky, Der Blaue Reiter), Art Brut, Naive Kunst.
 
     ANTWORTE STRENG IM JSON-FORMAT:
     {
       "interpretation": "Deine fundierte, in 4 Absätze strukturierte Analyse auf Deutsch...",
-      "visual_description": "A sophisticated English description of an abstract expressionist oil painting on raw canvas. Focus on archaic, primitive symbolic shapes and organic energy flows. Integrate the essences of ${posFav1?.name} and ${posFav2?.name} as luminous centers of energy, contrasting with the dark, jagged or heavy texture of ${negFav1?.name}. Use earthy tones, deep crimsons, and raw umber mixed with vibrant light. No literal objects, pure symbolic abstraction, heavy impasto texture."
+      "visual_description": "A sophisticated English prompt for DALL-E. STRICT INSTRUCTIONS: 2D flat composition, absolutely NO 3D rendering or shading. Thick, rhythmic black contour lines creating enclosed shapes (Cloisonnism). Fill the shapes with solid, vibrant, unmixed primary colors (mostly bright yellow backgrounds, intense reds and blues). No color gradients. The shapes should be abstract, hieroglyphic, and organically flowing, symbolizing ${posFav1?.name}, ${posFav2?.name}, clashing with ${negFav1?.name}. Texture of gouache or thick pastel crayon on rough paper. Style of Art Brut and early Kandinsky (Der Blaue Reiter). NO impasto, NO oil painting technique."
     }`;
 
     try {
-        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen (inkl. V/G-Werte) und entwirft visuelles Konzept...");
+        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im Kandinsky/Art Brut Stil...");
         console.time("⏱️ Dauer GPT-4o");
         
         const textResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -123,7 +115,6 @@ export const generateSoulCard = async (selectionData) => {
         const resultJson = JSON.parse(textData.choices[0].message.content);
         
         console.timeEnd("⏱️ Dauer GPT-4o");
-
         console.log("🎨 Schritt 2: OpenAI Image Generation API erstellt das Seelenbild (Base64)...");
         console.time("⏱️ Dauer Bild-API");
 
@@ -139,7 +130,7 @@ export const generateSoulCard = async (selectionData) => {
                 n: 1,
                 size: "1024x1792",
                 quality: "hd",
-                style: "natural",
+                style: "natural", // Natural ist wichtig, 'vivid' würde hier zu 3D-Kitsch führen
                 response_format: "b64_json"
             })
         });
@@ -149,7 +140,6 @@ export const generateSoulCard = async (selectionData) => {
 
         console.timeEnd("⏱️ Dauer Bild-API");
         console.timeEnd("⏱️ Gesamtdauer der KI-Generierung");
-        console.log("✅ Prozess erfolgreich abgeschlossen.");
         console.groupEnd();
 
         return {
