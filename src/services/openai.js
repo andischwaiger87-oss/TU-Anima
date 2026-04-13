@@ -21,7 +21,7 @@ export const generateSoulCard = async (selectionData) => {
 
     // Der psychologische und künstlerische Auftrag an GPT-4o
     const systemPrompt = `Du bist ein Kunstexperte und Psychologe für das TU-Anima Projekt. 
-    Deine Aufgabe ist es, eine Auswahl von Archetypen zu analysieren und eine visuelle Vision im spezifischen TU-Anima-Stil zu entwerfen.
+    Deine Aufgabe ist es, eine Auswahl von Archetypen zu analysieren und ein visuelles Konzept für ein Seelenbild im spezifischen TU-Anima-Stil zu entwerfen.
 
     STIL-DEFINITION (TU-Anima nach Dr. Heinrich Reich):
     - Abstrakt, gegenstandslos, psycho-ästhetisch.
@@ -38,12 +38,12 @@ export const generateSoulCard = async (selectionData) => {
     ANTWORTE STRENG IM JSON-FORMAT:
     {
       "interpretation": "Deine ca. 300 Wörter tiefe, psychologische Analyse auf Deutsch...",
-      "visual_prompt": "A sophisticated English prompt for DALL-E 3: An abstract expressionist oil painting on raw canvas. Focus on archaic, primitive symbolic shapes and organic energy flows. Integrate the essences of ${posFav1} and ${posFav2} as luminous centers of energy, contrasting with the dark, jagged or heavy texture of ${negFav1}. Use earthy tones, deep crimsons, and raw umber mixed with vibrant light. No literal objects, pure symbolic abstraction, heavy impasto texture."
+      "visual_description": "A sophisticated English description of an abstract expressionist oil painting on raw canvas. Focus on archaic, primitive symbolic shapes and organic energy flows. Integrate the essences of ${posFav1} and ${posFav2} as luminous centers of energy, contrasting with the dark, jagged or heavy texture of ${negFav1}. Use earthy tones, deep crimsons, and raw umber mixed with vibrant light. No literal objects, pure symbolic abstraction, heavy impasto texture."
     }`;
 
     try {
-        // SCHRITT 1: GPT-4o entwirft die Analyse und den Bild-Prompt
-        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft Bild-Vision...");
+        // SCHRITT 1: GPT-4o entwirft die Analyse und die visuelle Beschreibung
+        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept...");
         console.time("⏱️ Dauer GPT-4o");
         
         const textResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -65,11 +65,11 @@ export const generateSoulCard = async (selectionData) => {
         const resultJson = JSON.parse(textData.choices[0].message.content);
         
         console.timeEnd("⏱️ Dauer GPT-4o");
-        console.log("📝 GPT-4o Bild-Prompt:", resultJson.visual_prompt);
+        console.log("📝 GPT-4o Visuelles Konzept:", resultJson.visual_description);
 
-        // SCHRITT 2: DALL-E 3 setzt die Vision von GPT-4o um
-        console.log("🎨 Schritt 2: DALL-E 3 malt das Seelenbild (Base64)...");
-        console.time("⏱️ Dauer DALL-E 3");
+        // SCHRITT 2: OpenAI Image Generation API
+        console.log("🎨 Schritt 2: OpenAI Image Generation API erstellt das Seelenbild (Base64)...");
+        console.time("⏱️ Dauer Bild-API");
 
         const imageResponse = await fetch('https://api.openai.com/v1/images/generations', {
             method: 'POST',
@@ -78,12 +78,14 @@ export const generateSoulCard = async (selectionData) => {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "dall-e-3",
-                prompt: resultJson.visual_prompt,
+                // Technisches Modell-Flag (nomenklatorisch 'gpt-image-1' genannt)
+                model: "dall-e-3", 
+                // Die visuelle Beschreibung von GPT-4o als Eingabe
+                prompt: resultJson.visual_description,
                 n: 1,
                 size: "1024x1792",
                 quality: "hd",
-                style: "natural", // 'natural' sorgt für einen weniger 'ki-artigen', künstlerischen Look
+                style: "natural", // 'natural' sorgt für einen künstlerischen, weniger 'ki-artigen' Look
                 response_format: "b64_json"
             })
         });
@@ -92,7 +94,7 @@ export const generateSoulCard = async (selectionData) => {
         const imageData = await imageResponse.json();
 
         // --- FINAL LOGS ---
-        console.timeEnd("⏱️ Dauer DALL-E 3");
+        console.timeEnd("⏱️ Dauer Bild-API");
         console.timeEnd("⏱️ Gesamtdauer der KI-Generierung");
         console.log("✅ Prozess erfolgreich abgeschlossen.");
         console.groupEnd();
