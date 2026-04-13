@@ -1,10 +1,25 @@
 import { cards } from '../data/cards';
 
-// Placeholder or Environment Variable
-// In a real app, this should be a backend call or secure env. 
-// For this MVP, we might need a user input or hardcoded key (DANGEROUS).
-// I will implement a "Set Key" UI if it's missing, or check localStorage.
 const API_KEY_STORAGE = 'tuanima_openai_key';
+
+// Hier greifen wir auf die .env-Datei zu (Syntax gilt für Vite)
+const ENV_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+
+export const getApiKey = () => {
+    // 1. Schau nach, ob ein Key im Browser gespeichert ist
+    const localKey = localStorage.getItem(API_KEY_STORAGE);
+    
+    // 2. Nimm den lokalen Key, oder (falls leer) den Key aus der .env Datei
+    return localKey || ENV_API_KEY;
+};
+
+export const setApiKey = (key) => localStorage.setItem(API_KEY_STORAGE, key);
+
+export const generateSoulCard = async (selectionData) => {
+    const apiKey = getApiKey();
+    if (!apiKey) throw new Error("API Key missing");
+    
+    // ... hier geht dein Code ganz normal weiter ...
 
 export const getApiKey = () => localStorage.getItem(API_KEY_STORAGE);
 export const setApiKey = (key) => localStorage.setItem(API_KEY_STORAGE, key);
