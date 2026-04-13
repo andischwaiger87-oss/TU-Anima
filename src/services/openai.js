@@ -84,16 +84,16 @@ export const generateSoulCard = async (selectionData) => {
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um ein analoges Artefakt zu simulieren:
-    - MATERIAL: Ein Foto einer physischen, alten Karte aus Karton. Sichtbares Papierkorn, leichte Abnutzung.
-    - STIL & LINIEN: Rauer, handwerklicher Linolschnitt oder matte Gouache. Linien sind freihändig, unvollkommen, zittrig, mit Druckunregelmäßigkeiten.
-    - FARBEN: Gesättigt, aber erdig und MATT (getrocknete Farbe auf Karton). Variationen in der Farbdichte (unperfekte Füllung). Keine digitalen Leuchtfarben.
-    - KOMPOSITION: Organisch, symbolisch, Naive Kunst/Art Brut. KEINE Vektorgrafik, KEIN Hochglanz, KEINE perfekten Geometrien.
+    - MATERIAL: Ein Foto einer physischen, alten Karte. Sichtbarer, altweißer Kartenrand um das eigentliche Motiv.
+    - STIL & LINIEN: Art Brut, roher Expressionismus (wie Kandinsky oder frühe Holzschnitte). SEHR DICKE, unregelmäßige, zittrige, schwarze Konturlinien (wie mit starker Wachskreide oder dickem Pinsel gemalt).
+    - FARBEN: Matte, erdige Primärfarben (Dunkelgelb, Karminrot, Dunkelblau, Waldgrün). Unperfekte Farbfüllungen, die teils die schwarze Linie überlappen oder das Papier durchscheinen lassen.
+    - KOMPOSITION: Chaotisch, abstrakt, symbolisch. KOMPLETT FLACH (2D). Keine digitalen Effekte.
 
-    ANTWORTE STRENG IM JSON-FORMAT:
+    ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT:
     {
-      "interpretation": "Deine fundierte HTML-Analyse...",
-      "visual_description": "A close-up photograph of a vintage, physical psychological test card printed on rough, worn cardboard. The art style is a raw, artisanal linocut print or thick, matte hand-painted gouache. It features imperfect, slightly jittery, freehand black contour lines with visible printing irregularities and ink bleed. The colors are saturated but earthy and matte (like dried paint), with uneven color density and imperfect fills inside the lines. Absolutely NO glossy, digital, vector-like, or neon elements. The composition is an organic, naive abstraction symbolizing ${posFav1?.name} and ${posFav2?.name}, clashing with ${negFav1?.name}. The image must look like a genuine, raw, handmade analog artifact from the mid-20th century, completely avoiding any precise geometric or clean digital aesthetic."
-    }`;
+      "interpretation": "Deine HTML-Analyse...",
+      "visual_description": "A flat, top-down photograph of a single, physical, vintage mid-20th-century psychological testing card. The card features a wide, off-white, slightly aged paper margin framing a central abstract artwork. The art style is raw Art Brut and early abstract expressionism, heavily resembling a crude woodcut print or a primitive thick gouache painting. It features bold, thick, erratic, and unrefined black contour lines that look hand-painted with a stiff brush or thick wax crayon. The abstract shapes are filled with flat, saturated but earthy primary colors—mainly golden yellow, crimson red, deep blue, and forest green. The color application is uneven and matte, occasionally spilling over the black lines or leaving raw unpainted gaps showing the paper texture beneath. The composition is a purely abstract, naive, and chaotic arrangement of organic and geometric shapes symbolizing the interplay between ${posFav1?.name}, ${posFav2?.name}, and clashing with ${negFav1?.name}. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss, and no clean geometries. It must look exactly like an authentic, messy, hand-painted analog card from an old archive."
+    }`; 
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
