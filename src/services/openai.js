@@ -18,15 +18,6 @@ export const setApiKey = (key) => localStorage.setItem(API_KEY_STORAGE, key);
 export const generateSoulCard = async (selectionData) => {
     const apiKey = getApiKey();
     if (!apiKey) throw new Error("API Key missing");
-    
-    // ... hier geht dein Code ganz normal weiter ...
-
-export const getApiKey = () => localStorage.getItem(API_KEY_STORAGE);
-export const setApiKey = (key) => localStorage.setItem(API_KEY_STORAGE, key);
-
-export const generateSoulCard = async (selectionData) => {
-    const apiKey = getApiKey();
-    if (!apiKey) throw new Error("API Key missing");
 
     // 1. Prepare Prompt
     const posNames = selectionData.posCards.map(id => cards.find(c => c.id === id).name).join(', ');
