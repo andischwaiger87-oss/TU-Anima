@@ -72,8 +72,7 @@ export const generateSoulCard = async (selectionData) => {
     === DEIN AUFTRAG ===
     
     1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose anhand der Daten.
-    Strukturiere deinen Text ZWINGEND als HTML-Code! Verwende <h3> für die 4 Überschriften und <p> für die Absätze. Nutze KEIN Markdown (keine Sternchen ** oder Rauten ##).
-    
+    Strukturiere deinen Text ZWINGEND als HTML-Code! Verwende <h3> für die 4 Überschriften und <p> für die Absätze. Nutze KEIN Markdown.
     <h3>Zentrale Seelendynamik</h3>
     <p>(Analyse der positiven Favoriten)</p>
     <h3>Abwehr und Blockaden</h3>
@@ -84,21 +83,20 @@ export const generateSoulCard = async (selectionData) => {
     <p>(Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)</p>
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild, aber halte dich STRIKT an diesen visuellen Stil:
-    - LINIEN: Dicke, dunkle, schwungvolle Konturlinien (Cloisonnismus-Stil). Hieroglyphenartige, reduzierte Formen.
-    - FARBEN: Expressiv, flächig, ungemischt (keine Verläufe!). Hoher Kontrast, leuchtende Primärfarben (viel intensives Gelb, Rot, Blau).
-    - KOMPOSITION: Strikt 2D (keine Perspektive, keine 3D-Effekte, keine Schattierungen). Zentrierte Energie.
-    - TEXTUR: Spuren von Gouache, dicker Pastellkreide oder Tusche auf rauem Papier. KEINE Ölgemälde-Spachteltechnik (no impasto)!
-    - KUNST-STIL: Expressionismus (Kandinsky, Der Blaue Reiter), Art Brut, Naive Kunst.
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um ein analoges Artefakt zu simulieren:
+    - MATERIAL: Ein Foto einer physischen, alten Karte aus Karton. Sichtbares Papierkorn, leichte Abnutzung.
+    - STIL & LINIEN: Rauer, handwerklicher Linolschnitt oder matte Gouache. Linien sind freihändig, unvollkommen, zittrig, mit Druckunregelmäßigkeiten.
+    - FARBEN: Gesättigt, aber erdig und MATT (getrocknete Farbe auf Karton). Variationen in der Farbdichte (unperfekte Füllung). Keine digitalen Leuchtfarben.
+    - KOMPOSITION: Organisch, symbolisch, Naive Kunst/Art Brut. KEINE Vektorgrafik, KEIN Hochglanz, KEINE perfekten Geometrien.
 
     ANTWORTE STRENG IM JSON-FORMAT:
     {
-      "interpretation": "Deine fundierte, in 4 Absätze strukturierte Analyse auf Deutsch...",
-      "visual_description": "A sophisticated English prompt for DALL-E. STRICT INSTRUCTIONS: 2D flat composition, absolutely NO 3D rendering or shading. Thick, rhythmic black contour lines creating enclosed shapes (Cloisonnism). Fill the shapes with solid, vibrant, unmixed primary colors (mostly bright yellow backgrounds, intense reds and blues). No color gradients. The shapes should be abstract, hieroglyphic, and organically flowing, symbolizing ${posFav1?.name}, ${posFav2?.name}, clashing with ${negFav1?.name}. Texture of gouache or thick pastel crayon on rough paper. Style of Art Brut and early Kandinsky (Der Blaue Reiter). NO impasto, NO oil painting technique."
+      "interpretation": "Deine fundierte HTML-Analyse...",
+      "visual_description": "A close-up photograph of a vintage, physical psychological test card printed on rough, worn cardboard. The art style is a raw, artisanal linocut print or thick, matte hand-painted gouache. It features imperfect, slightly jittery, freehand black contour lines with visible printing irregularities and ink bleed. The colors are saturated but earthy and matte (like dried paint), with uneven color density and imperfect fills inside the lines. Absolutely NO glossy, digital, vector-like, or neon elements. The composition is an organic, naive abstraction symbolizing ${posFav1?.name} and ${posFav2?.name}, clashing with ${negFav1?.name}. The image must look like a genuine, raw, handmade analog artifact from the mid-20th century, completely avoiding any precise geometric or clean digital aesthetic."
     }`;
 
     try {
-        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im Kandinsky/Art Brut Stil...");
+        console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
         console.time("⏱️ Dauer GPT-4o");
         
         const textResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -135,7 +133,7 @@ export const generateSoulCard = async (selectionData) => {
                 n: 1,
                 size: "1024x1792",
                 quality: "hd",
-                style: "natural", // Natural ist wichtig, 'vivid' würde hier zu 3D-Kitsch führen
+                style: "natural", 
                 response_format: "b64_json"
             })
         });
