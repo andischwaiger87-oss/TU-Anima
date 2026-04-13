@@ -76,7 +76,8 @@ export const generateSoulCard = async (selectionData) => {
             n: 1,
             size: "1024x1792",
             quality: "hd",
-            style: "vivid"
+            style: "vivid",
+            response_format: "b64_json" // <-- NEU: Wir fordern die rohen Bilddaten (Base64) an
         })
     });
 
@@ -85,6 +86,7 @@ export const generateSoulCard = async (selectionData) => {
 
     return {
         interpretation,
-        imageUrl: imageData.data[0].url
+        // NEU: Wir verpacken die Base64-Daten so, dass das Frontend sie direkt als Bild lesen kann
+        imageUrl: `data:image/png;base64,${imageData.data[0].b64_json}`
     };
 };
