@@ -1,0 +1,40 @@
+Gute Frage! Das Dokument selbst liefert zwar keine direkte Legende für diese Abkürzungen, aber wenn man die Struktur und die Querverweise der 36 Symbole systematisch analysiert, wird die Logik dahinter sehr klar.
+
+Die von dir genannten Werte (V = 7, 13, 26, 36 | G = 15, 24, 34) gehören exakt zu Symbol 19: Lilie.
+
+Hier ist die Entschlüsselung, wofür die Buchstaben stehen und wie sie im Test funktionieren:
+
+1. Wofür stehen "V" und "G"?
+Da die Zahlen hinter den Buchstaben immer exakt zwischen 1 und 36 liegen (genau die Anzahl der Symbole im Test), handelt es sich um ein Querverweissystem, das die psychologische Vernetzung der Symbole darstellt:
+
+V = Verwandte Symbole (Affinität / Verstärkung): Diese Zahlen verweisen auf andere Symbole im Test, die eine sehr ähnliche, ergänzende oder thematisch verwandte Bedeutung haben.
+
+G = Gegensätzliche Symbole (Gegenpol / Kontrast): Diese Zahlen verweisen auf Symbole, die das exakte psychologische Gegenteil oder den Konfliktpol zum jeweiligen Symbol darstellen.
+
+2. Wie das am Beispiel der "Lilie" (Nr. 19) funktioniert
+Die Lilie steht laut Test unter anderem für "Ideal, Glaube, Verehrung, Frömmigkeit, Unschuld" und "Jenseitsverlangen". Schauen wir uns nun die Querverweise an:
+
+Die Verwandten (V = 7, 13, 26, 36):
+
+7 (Jupiter): Steht für Religiosität und Güte.
+
+13 (Regenbogen): Steht für Phantasie, das Irreale und Erdenferne.
+
+26 (Kaninchen): Steht für Hingabe, Sanftmut und Demut.
+
+36 (Geschlossenes Buch): Steht für Meditation, Philosophie und Ruhebedürfnis.
+
+Ergebnis: Alle V-Werte teilen mit der Lilie eine spirituelle, weiche, erdenferne oder hingebungsvolle Grundhaltung.
+
+Die Gegensätze (G = 15, 24, 34):
+
+15 (X): Steht für Zweifel, Zerrüttung und Konflikt (das Gegenteil von Glaube).
+
+24 (Mäuse): Steht für Alltagssorgen, Kleinlichkeit und Pedanterie (das Gegenteil von Erdenferne und Idealismus).
+
+34 (Uhr): Steht für Pflicht, Technik, Sachlichkeit und Mechanik (das Gegenteil von Frömmigkeit und Phantasie).
+
+Ergebnis: Die G-Werte verkörpern harte Sachlichkeit, Zweifel und erdgebundene Sorgen – den absoluten Kontrast zur transzendenten Lilie.
+
+3. Der Nutzen für den Test
+In der psychologischen Testauswertung dienen diese Netzwerke der Konsistenzprüfung. Wenn ein Proband sich stark zur Lilie hingezogen fühlt (positiv), würde man erwarten, dass er auch die V-Symbole tendenziell positiv bewertet und die G-Symbole eher ablehnt. Wählt jemand hingegen die Lilie, aber gleichzeitig auch ihre schärfsten Gegensätze, deutet das auf einen inneren Konflikt oder eine Ambivalenz in diesem Persönlichkeitsbereich hin.
