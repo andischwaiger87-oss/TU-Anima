@@ -11,19 +11,18 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
     const [apiKeyInput, setApiKeyInput] = useState('');
     const resultRef = useRef(null);
     
-    // State für den wechselnden Lade-Text
     const [loadingTextIndex, setLoadingTextIndex] = useState(0);
 
     const handleGenerate = async () => {
         setLoading(true);
         setError(null);
-        setLoadingTextIndex(0); // Text-Index zurücksetzen
+        setLoadingTextIndex(0);
 
         if (isSimulation) {
             setTimeout(() => {
                 setResult({
-                    imageUrl: '/assets/Individuelles Seelenbild-mock.webp',
-                    interpretation: "DEMO ANALYSE (Simulation):\n\nDeine Wahl zeigt eine starke Fokussierung auf Wachstum und Transformation. Dies ist ein Platzhalter-Text für den Demonstrationsmodus."
+                    imageUrl: '/cards/1-Lebensflamme.webp', // Mock Image
+                    interpretation: "<h3>DEMO ANALYSE</h3><p>Dies ist ein Platzhalter-Text für den Demonstrationsmodus.</p>"
                 });
                 setLoading(false);
             }, 1500);
@@ -52,25 +51,35 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         if (!resultRef.current) return;
         try {
             const element = resultRef.current;
-            const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+            // Etwas niedrigere Skalierung, damit der Text nicht riesig wird und besser umbricht
+            const canvas = await html2canvas(element, { scale: 1.5, useCORS: true, backgroundColor: '#ffffff' });
             const imgData = canvas.toDataURL('image/png');
+            
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const pdfWidth = 210; // A4 Breite
+            const pdfHeight = 297; // A4 Höhe
+            const margin = 15; // 15mm Seitenrand (verhindert randloses Abschneiden)
+            
+            const contentWidth = pdfWidth - (margin * 2);
             const imgProps = pdf.getImageProperties(imgData);
-            const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
+            
             let heightLeft = imgHeight;
-            let position = 0;
+            let position = margin; // Startposition mit Rand oben
 
-            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-            heightLeft -= pdfHeight;
+            // Erste Seite
+            pdf.addImage(imgData, 'PNG', margin, position, contentWidth, imgHeight);
+            heightLeft -= (pdfHeight - (margin * 2));
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
+            // Weitere Seiten
+            while (heightLeft > 0) {
+                // Verschiebt das Bild nach oben (Minusbereich), um den nächsten Abschnitt zu zeigen
+                position = heightLeft - imgHeight + margin; 
                 pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-                heightLeft -= pdfHeight;
+                pdf.addImage(imgData, 'PNG', margin, position, contentWidth, imgHeight);
+                heightLeft -= (pdfHeight - (margin * 2));
             }
+            
             pdf.save('TU-Anima-Seelenkarte.pdf');
         } catch (e) {
             console.error("PDF Fail", e);
@@ -78,7 +87,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         }
     };
 
-    // Effekt für den initialen Start
     useEffect(() => {
         if (isSimulation) {
             handleGenerate();
@@ -89,18 +97,16 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         }
     }, []);
 
-    // Effekt für den rotierenden Text während dem Laden
     useEffect(() => {
         let interval;
         if (loading) {
             interval = setInterval(() => {
                 setLoadingTextIndex((prev) => (prev + 1) % 5);
-            }, 8000); // Alle 8 Sekunden ändert sich der Text
+            }, 8000);
         }
         return () => clearInterval(interval);
     }, [loading]);
 
-    // Die Texte für die Lade-Animation
     const loadingTexts = [
         "Deine Archetypen werden tiefenpsychologisch analysiert...",
         "Spannungen und Ressourcen werden ausgewertet...",
@@ -111,57 +117,62 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
 
     if (loading) {
         return (
-            <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 50%, #fafafa 0%, #ebebeb 100%)' }}>
+            <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at 50% 50%, #fafafa 0%, #ebebeb 100%)', padding: '20px' }}>
                 <style>{`
-                    @keyframes pulseOrb {
-                        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
-                        50% { transform: scale(1.05); box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.08); }
-                        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
-                    }
-                    @keyframes float {
-                        0% { transform: translateY(0px); }
-                        50% { transform: translateY(-10px); }
-                        100% { transform: translateY(0px); }
-                    }
                     @keyframes fadeText {
-                        0% { opacity: 0; transform: translateY(10px); }
+                        0% { opacity: 0; transform: translateY(5px); }
                         10% { opacity: 1; transform: translateY(0); }
                         90% { opacity: 1; transform: translateY(0); }
-                        100% { opacity: 0; transform: translateY(-10px); }
+                        100% { opacity: 0; transform: translateY(-5px); }
                     }
+                    /* Karten-Animation */
+                    .card-stack { position: relative; width: 60px; height: 90px; margin-bottom: 50px; perspective: 1000px; }
+                    .anim-card { 
+                        position: absolute; width: 100%; height: 100%; background: white; 
+                        border: 2px solid #333; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                        transform-origin: bottom center;
+                    }
+                    .anim-card-1 { animation: shuffle1 3s infinite ease-in-out; z-index: 1; }
+                    .anim-card-2 { animation: shuffle2 3s infinite ease-in-out; z-index: 2; }
+                    .anim-card-3 { animation: shuffle3 3s infinite ease-in-out; z-index: 3; }
+                    
+                    @keyframes shuffle1 { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(-30px) rotate(-15deg); } }
+                    @keyframes shuffle2 { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(0px) rotate(0deg); } }
+                    @keyframes shuffle3 { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(30px) rotate(15deg); } }
+
+                    /* Scanner-Effekt auf der vordersten Karte */
+                    .scanner {
+                        position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0, 0, 0, 0.5);
+                        box-shadow: 0 0 8px 2px rgba(0,0,0,0.2); animation: scan 3s infinite linear;
+                    }
+                    @keyframes scan { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 95%; opacity: 0; } }
                 `}</style>
 
-                {/* Pulsierender Energie-Kern */}
-                <div style={{
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #222 0%, #555 100%)',
-                    animation: 'pulseOrb 3s ease-in-out infinite, float 4s ease-in-out infinite',
-                    marginBottom: '50px',
-                    position: 'relative'
-                }}>
-                    <div style={{
-                        position: 'absolute', inset: '4px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)',
-                        background: 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
-                    }}></div>
+                {/* Neue Karten-Animation */}
+                <div className="card-stack">
+                    <div className="anim-card anim-card-1"></div>
+                    <div className="anim-card anim-card-2"></div>
+                    <div className="anim-card anim-card-3">
+                        <div className="scanner"></div>
+                        <div style={{ width: '40%', height: '40%', border: '2px solid #ddd', borderRadius: '50%', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                    </div>
                 </div>
 
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '400', margin: '0 0 15px 0', letterSpacing: '1px', color: '#111' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: '400', margin: '0 0 15px 0', letterSpacing: '1px', color: '#111', textAlign: 'center' }}>
                     Seelenbild wird erschaffen
                 </h2>
                 
-                {/* Rotierender Text */}
-                <div style={{ height: '30px', overflow: 'hidden', position: 'relative', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
+                {/* Dynamische Höhe für Textumbruch */}
+                <div style={{ minHeight: '60px', width: '100%', maxWidth: '400px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                      <p key={loadingTextIndex} style={{ 
-                         margin: 0, color: '#666', fontSize: '1.05rem',
+                         margin: 0, color: '#666', fontSize: '1.05rem', lineHeight: '1.5',
                          animation: 'fadeText 8s ease-in-out forwards'
                      }}>
                          {loadingTexts[loadingTextIndex]}
                      </p>
                 </div>
                 
-                <p style={{ marginTop: '40px', fontSize: '0.75rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '2px' }}>
+                <p style={{ marginTop: '20px', fontSize: '0.75rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '2px' }}>
                     Dauer: ca. 45 - 60 Sekunden
                 </p>
             </div>
@@ -197,6 +208,10 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         return (
             <div className="result-container" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <style>{`
+                    .html-interpretation h3 { font-size: 1.3rem; color: #111; margin-top: 35px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+                    .html-interpretation h3:first-child { margin-top: 0; }
+                    .html-interpretation p { line-height: 1.8; color: #444; font-size: 1.1rem; margin-bottom: 20px; }
+                    
                     @media (max-width: 768px) {
                         .result-container { padding: 20px 10px !important; }
                         .result-card-inner { padding: 20px !important; }
@@ -208,7 +223,7 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                     }
                 `}</style>
 
-                <div ref={resultRef} className="result-card-inner" style={{ background: 'white', padding: '40px', borderRadius: '8px', width: '100%', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
+                <div ref={resultRef} className="result-card-inner" style={{ background: 'white', padding: '60px 40px', borderRadius: '8px', width: '100%', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
                     <div className="result-header" style={{ textAlign: 'center', marginBottom: '40px' }}>
                         <h1 style={{ marginBottom: '10px', fontSize: '2.5rem' }}>Deine Seelenkarte</h1>
                         <p style={{ color: '#666', letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.9rem' }}>TU-Anima Bildertest Ergebnis</p>
@@ -232,13 +247,14 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                             </div>
                         </div>
 
-                        <div style={{ width: '100%', maxWidth: '800px' }}>
-                            <h3 style={{ fontSize: '1.2rem', color: '#666', borderBottom: '1px solid #eee', paddingBottom: '15px', marginBottom: '25px', textTransform: 'uppercase', letterSpacing: '2px' }}>
-                                {isSimulation ? "DEMO ANALYSE (Simulation):" : "Deine Persönliche Analyse:"}
-                            </h3>
-                            <div style={{ lineHeight: '1.8', whiteSpace: 'pre-wrap', color: '#333', fontSize: '1.1rem', textAlign: 'left' }}>
-                                {result.interpretation}
-                            </div>
+                        <div style={{ width: '100%', maxWidth: '800px', textAlign: 'left' }}>
+                            {isSimulation && <h3 style={{ color: 'red', marginBottom: '20px' }}>DEMO ANALYSE (Simulation)</h3>}
+                            
+                            {/* Rendert das HTML von GPT-4o sicher */}
+                            <div 
+                                className="html-interpretation"
+                                dangerouslySetInnerHTML={{ __html: result.interpretation }} 
+                            />
                         </div>
                     </div>
 

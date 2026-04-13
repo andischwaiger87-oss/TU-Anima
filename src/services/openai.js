@@ -72,11 +72,16 @@ export const generateSoulCard = async (selectionData) => {
     === DEIN AUFTRAG ===
     
     1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose anhand der Daten.
-    Strukturiere deinen Text zwingend mit folgenden Markdown-Überschriften und schreibe präzise, analytisch und erwachsen:
-    **Zentrale Seelendynamik** (Analyse der positiven Favoriten)
-    **Abwehr und Blockaden** (Tiefenanalyse des negativen Favoriten)
-    **Innere Spannungsfelder** (Analyse der Ambivalenzen / Reibung zwischen Ressourcen und Abwehr)
-    **Diagnostischer Ausblick** (Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)
+    Strukturiere deinen Text ZWINGEND als HTML-Code! Verwende <h3> für die 4 Überschriften und <p> für die Absätze. Nutze KEIN Markdown (keine Sternchen ** oder Rauten ##).
+    
+    <h3>Zentrale Seelendynamik</h3>
+    <p>(Analyse der positiven Favoriten)</p>
+    <h3>Abwehr und Blockaden</h3>
+    <p>(Tiefenanalyse des negativen Favoriten)</p>
+    <h3>Innere Spannungsfelder</h3>
+    <p>(Analyse der Ambivalenzen / Reibung)</p>
+    <h3>Diagnostischer Ausblick</h3>
+    <p>(Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)</p>
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild, aber halte dich STRIKT an diesen visuellen Stil:
