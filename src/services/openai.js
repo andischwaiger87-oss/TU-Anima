@@ -90,7 +90,7 @@ export const generateSoulCard = async (selectionData) => {
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
     - ÜBERSETZUNG DER ARCHETYPEN: Verwende für den Prompt NIEMALS die direkten Namen der Karten (z.B. "Sonne", "Messer"). Übersetze ihre tiefenpsychologische Bedeutung stattdessen in 4 bis 5 englische Keywords für abstrakte Emotionen (z.B. "vitality, freedom clashing with strict restriction and fear").
-    - STIL: Primitiver dynamischer Expressionismus / Art Brut.
+    - STIL: Primitiver dynamischer Expressionismus / Art Brut / Minimalismus
     - FORMEN: GANZ WENIGE, klobige, dynamische, primitive und naive Symbole. Biomorphe Kurven mit kräftigen schwarzen Outlines. REIN ABSTRAKT. Keine echten Objekte.
     - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
     - FARBEN: Expressive, kontrastreiche, lebendige Primärfarben in einem dynamischen, grafischen Retrodruck-Stil.
