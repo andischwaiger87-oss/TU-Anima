@@ -89,17 +89,17 @@ export const generateSoulCard = async (selectionData) => {
 
 
 
-  2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
+    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
 
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
 
-    - STIL: Primitiver Expressionismus / Art Brut (wie grobe Holzschnitte).
+    - STIL: Primitiver dynamischer Expressionismus / Art Brut (wie grobe Holzschnitte).
 
-    - FORMEN: Nur GANZ WENIGE, klobige, primitive und naive Symbole. KEINE filigranen Netze.
+    - FORMEN: Nur GANZ WENIGE, klobige, dynamische, primitive und naive Symbole. KEINE filigranen Netze.
 
     - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
 
-    - FARBEN: Flächen innerhalb der schwarzen Linien sind mit matten Primärfarben (Gelb, Rot, Grün, Blau) ausgefüllt.
+    - FARBEN: Flächen innerhalb der schwarzen Linien sind mit matten Farben ausgefüllt.
 
     - KOMPOSITION: Komplett asymmetrisch, flach, kein 3D, keine Rahmen.
 
@@ -111,7 +111,7 @@ export const generateSoulCard = async (selectionData) => {
 
       "interpretation": "Deine HTML Analyse...",
 
-      "visual_description": "A completely flat 2D scan of a vintage, primitive Art Brut gouache painting on rough, off-white paper. NO 3D effects, NO shadows, NO borders, NO gradients. The style is crude mid-20th-century abstract expressionism. The composition consists of just a few LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, and erratic black contour lines, as if painted with a thick, messy brush. Inside these thick black outlines, the shapes are filled with solid, flat, matte, earthy primary colors (crimson red, deep yellow, forest green, dark blue). The color application is messy, unmixed, and occasionally leaves unpainted off-white paper gaps. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Aspect Ratio: 2:3"
+      "visual_description": "A completely flat 2D primitive vintage Art Brut gouache painting, on rough paper. NO 3D effects, NO shadows, NO borders, NO gradients. The style is crude mid-20th-century abstract expressionism. The composition consists of just a few LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, and erratic black contour lines, as if painted with a thick, messy brush. Inside these thick black outlines, the shapes are filled with solid, flat, matte colors. The color application is messy, unmixed. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
 
     }`;
 
