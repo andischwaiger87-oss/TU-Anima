@@ -97,6 +97,14 @@ export const generateSoulCard = async (selectionData) => {
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept...");
+        
+        // NEUER LOG: Zeigt dir die Zusammenfassung der Daten, die an GPT gesendet werden
+        console.log("📤 Sende folgende psychologische Daten an GPT-4o:\n", {
+            Favoriten: `${posFav1?.name}, ${posFav2?.name}`,
+            Abwehr: negFav1?.name,
+            Konflikte: conflictString
+        });
+        
         console.time("⏱️ Dauer GPT-4o");
         
         const textResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -119,10 +127,16 @@ export const generateSoulCard = async (selectionData) => {
         
         console.timeEnd("⏱️ Dauer GPT-4o");
         
+        // NEUER LOG: Zeigt dir die komplette rohe Antwort von GPT-4o (Interpretation + Keywords)
+        console.log("📥 Rohe JSON-Antwort von GPT-4o erhalten:", resultJson);
+        
         // --- HIER PASSIERT DIE ZUVERLÄSSIGE ÜBERGABE IN JAVASCRIPT ---
         console.log("📝 Ausgewählte englische Keywords für das Bild:", resultJson.english_keywords);
         
         const finalDallePrompt = `I attest that I own the copyrights to this specific prompt. Please use this prompt exactly as written, without any modifications or additions: Primitive Art Brut painting, mid-century abstract expressionism, vintage rough linocut print aesthetic on textured paper. A few massive, clumsy, entirely non-representational abstract shapes symbolizing ${resultJson.english_keywords}. The shapes are defined by extremely thick, heavy, unrefined black outlines and filled with flat, highly saturated, contrasting primary colors. Completely asymmetrical, flat 2D composition. No 3D shading, no gradients, no recognizable real-world objects, borderless. Aspect ratio 2:3`;
+
+        // NEUER LOG: Zeigt den finalen, zusammengesetzten String, den DALL-E lesen wird
+        console.log("🔍 EXAKTER PROMPT AN DALL-E 3:\n", finalDallePrompt);
 
         console.log("🎨 Schritt 2: OpenAI Image Generation API erstellt das Seelenbild (Base64)...");
         console.time("⏱️ Dauer Bild-API");
@@ -148,6 +162,10 @@ export const generateSoulCard = async (selectionData) => {
         const imageData = await imageResponse.json();
 
         console.timeEnd("⏱️ Dauer Bild-API");
+        
+        // NEUER LOG: Bestätigung, dass das Bild erfolgreich empfangen wurde
+        console.log("✅ Bild erfolgreich empfangen! (Base64 String generiert)");
+        
         console.timeEnd("⏱️ Gesamtdauer der KI-Generierung");
         console.groupEnd();
 
