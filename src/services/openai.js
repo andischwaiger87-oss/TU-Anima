@@ -88,16 +88,18 @@ export const generateSoulCard = async (selectionData) => {
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - MATERIAL: Spielkartenkarton
-    - STIL & LINIEN: Abstrakter Expressionismus. Rein organische, naive und symbolische Formen, *keine* reinen geometrischen Formen. ZWINGEND dicke, unperfekte, schwarze Konturlinien.
-    - FARBEN: Matte, erdige Primärfarben (Dunkelgelb, Karminrot, Dunkelblau, Waldgrün). Kräftig, um emotionale Reaktionen wie beim Lüscher-Test hervorzurufen.
-    - KOMPOSITION: Chaotisch, abstrakt, archetypisch, aber mit einer naiven, symbolischen Anordnung, die Dynamik ausdrückt. KOMPLETT FLACH (2D).
+    - STIL: Primitiver Expressionismus / Art Brut (wie grobe Holzschnitte).
+    - FORMEN: Nur GANZ WENIGE, klobige, primitive und naive Symbole. KEINE filigranen Netze.
+    - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
+    - FARBEN: Flächen innerhalb der schwarzen Linien sind mit matten Primärfarben (Gelb, Rot, Grün, Blau) ausgefüllt.
+    - KOMPOSITION: Komplett asymmetrisch, flach, kein 3D, keine Rahmen.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A close-up photograph of a single physical vintage psychological symbol card with a textured, aged cardboard surface and rounded corners. The entire card, including a prominent, clean white cardboard border and the inner chaotic graphic, fills the frame. The art style is raw expressionistic and naive-symbolic, consisting of a dense, intricate web of interlocking and chaotic organic forms and tangled lines. The composition visually symbolizes the psychological interaction between the positive forces of ${posFav1?.name} and ${posFav2?.name}, colliding with the negative blockage of ${negFav1?.name}. The dominant feature is the exclusive use of exceptionally thick, shaky, erratic, imperfect, hand-inked black contour lines with visible pressure variations and ink bleed. No precise geometric shapes are present. The color palette is deeply saturated but strictly matte and earthy: deep crimson red, golden-ochre yellow, forest green, dark blue. The color fills are imperfect, bleeding past the lines and revealing the underlying textured cardboard. Absolutely no text, gradients, 3D elements, or digital gloss are visible. Lighting is soft and directional, emphasizing the physical paper texture. Aspect Ratio: 2:3"
+      "visual_description": "A completely flat 2D scan of a vintage, primitive Art Brut gouache painting on rough, off-white paper. NO 3D effects, NO shadows, NO borders, NO gradients. The style is crude mid-20th-century abstract expressionism. The composition consists of just a few LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, and erratic black contour lines, as if painted with a thick, messy brush. Inside these thick black outlines, the shapes are filled with solid, flat, matte, earthy primary colors (crimson red, deep yellow, forest green, dark blue). The color application is messy, unmixed, and occasionally leaves unpainted off-white paper gaps. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Aspect Ratio: 2:3"
     }`;
+
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
