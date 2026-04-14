@@ -43,7 +43,7 @@ export const generateSoulCard = async (selectionData) => {
         ? `ACHTUNG - INNERE AMBIVALENZ: Der Testand hat folgende Gegenpole GLEICHZEITIG positiv gewählt, was auf einen starken inneren Spannungszustand hindeutet: ${uniqueConflicts.join(', ')}.` 
         : "Keine offenkundigen Gegenpol-Spannungen in der Positiv-Auswahl.";
 
-    // 4. DER AKTUALISIERTE, KORRIGIERTE SYSTEM-PROMPT
+    // 4. DER NEUE, STRUKTURIERTE SYSTEM-PROMPT
     const systemPrompt = `Du bist ein hochqualifizierter Tiefenpsychologe nach der Lehre von Dr. Heinrich Reich (TU-Anima Bildertest). 
     Deine Aufgabe ist eine hochgradig individuelle, differenzierte und strukturierte Falldiagnose des Testanden sowie der Entwurf eines präzisen Bild-Prompts.
 
@@ -82,18 +82,17 @@ export const generateSoulCard = async (selectionData) => {
     <h3>Diagnostischer Ausblick</h3>
     <p>(Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)</p>
     
-    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR (KORRIGIERT FÜR AUTHENTIZITÄT):
+    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um ein analoges Artefakt zu simulieren:
-    - PRÄSENTATION: Ein flacher, hochauflösender Scan eines sauberen Kunstdrucks. Ein schmaler, **reinweißer Papierrand** umrahmt das zentrale Motiv. Der Hintergrund des Bildes *innerhalb* des Motivs muss oft **reinweiß oder sehr hell** sein, um die Farben leuchten zu lassen.
-    - STIL: **Hochenergetischer, abstrakter Expressionismus und Fauvismus** (Denke an Kandinsky, Miró, Matisse).
-    - LINIEN: Variabel. Nutze eine Mischung aus spontanen, fließenden schwarzen Linien (wie Tinte oder Marker) und Bereichen, die *nur* durch Farbflächen definiert sind (keine schwarzen Outlines). Manche Linien können auch farbig sein. Vermeide einen groben Holzschnitt-Look.
-    - FARBEN (WICHTIG): **Maximale Sättigung, Vibranz und Leuchtkraft**. Nutze die **gesamte Palette** leuchtender Primär- und Sekundärfarben: Feuerrot, Magenta, Cyanblau, Ultramarin, Sonnengelb, Orange, Violett, Smaragdgrün, Limettengrün. Matte oder erdige Töne sind STRIKT VERBOTEN. Die Farben müssen leuchten, als wären sie frisch gedruckt.
-    - KOMPOSITION: Eine rein abstrakte, naive, symbolische Anordnung von Formen, Wirbeln, Zacken und organischen Strukturen. **KOMPLETT FLACH (2D)**.
+    - MATERIAL: Ein Foto einer physischen, alten Karte. Sichtbarer, altweißer Kartenrand um das eigentliche Motiv.
+    - STIL & LINIEN: Art Brut, roher Expressionismus (wie Kandinsky oder frühe Holzschnitte). SEHR DICKE, unregelmäßige, zittrige, schwarze Konturlinien (wie mit starker Wachskreide oder dickem Pinsel gemalt).
+    - FARBEN: Matte, erdige Primärfarben (Dunkelgelb, Karminrot, Dunkelblau, Waldgrün). Unperfekte Farbfüllungen, die teils die schwarze Linie überlappen oder das Papier durchscheinen lassen.
+    - KOMPOSITION: Chaotisch, abstrakt, symbolisch. KOMPLETT FLACH (2D). Keine digitalen Effekte.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT:
     {
       "interpretation": "Deine HTML-Analyse...",
-      "visual_description": "A high-resolution, professional, flat scan of a pristine abstract art print on bright white art paper. The artwork is framed by a clean, pure white paper margin. The central abstract composition is in the vibrant style of Lyrical Abstraction and Fauvism, heavily resembling a blend of Kandinsky and Miró's fluid, energetic forms. It features a dynamic mix of spontaneous black ink lines, energetic scribbles, and broad, purely defined fields of highly saturated color. The color palette is full, luminous, and extremely vibrant, using non-earthy, radiant colors including vivid crimson, fuchsia pink, electric turquoise, cobalt blue, intense sunflower yellow, fiery orange, and luminous emerald green. The colored ink texture is matte but the colors are intensely potent and clean. The abstract shapes are a naive, symbolic arrangement of organic loops, sharp geometric clashes, and chaotic emotional outbursts representing the psychological interaction of ${posFav1?.name} and ${posFav2?.name} being obstructed by ${negFav1?.name}. It is strictly flat 2D artwork, absolutely no 3D elements, no digital bevels, no vintage decay, and no rough woodcut texture. The art should pop against the clean white paper."
+      "visual_description": "A flat, top-down photograph of a single, physical, vintage mid-20th-century psychological testing card. The card features a wide, off-white, slightly aged paper margin framing a central abstract artwork. The art style is raw Art Brut and early abstract expressionism, heavily resembling a crude woodcut print or a primitive thick gouache painting. It features bold, thick, erratic, and unrefined black contour lines that look hand-painted with a stiff brush or thick wax crayon. The abstract shapes are filled with flat, saturated but earthy primary colors—mainly golden yellow, crimson red, deep blue, and forest green. The color application is uneven and matte, occasionally spilling over the black lines or leaving raw unpainted gaps showing the paper texture beneath. The composition is a purely abstract, naive, and chaotic arrangement of organic and geometric shapes symbolizing the interplay between ${posFav1?.name}, ${posFav2?.name}, and clashing with ${negFav1?.name}. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss, and no clean geometries. It must look exactly like an authentic, messy, hand-painted analog card from an old archive."
     }`; 
 
     try {
@@ -132,7 +131,7 @@ export const generateSoulCard = async (selectionData) => {
                 model: "dall-e-3", 
                 prompt: resultJson.visual_description,
                 n: 1,
-                size: "1024x1792", // Beibehaltung des Hochformats für Karten
+                size: "1024x1792",
                 quality: "hd",
                 style: "natural", 
                 response_format: "b64_json"
