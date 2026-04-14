@@ -40,22 +40,26 @@ export const generateSoulCard = async (selectionData) => {
     });
     const uniqueConflicts = [...new Set(conflicts)];
     const conflictString = uniqueConflicts.length > 0 
-        ? `ACHTUNG - INNERE AMBIVALENZ: Der Testand hat folgende Gegenpole GLEICHZEITIG positiv gewählt, was auf einen starken inneren Spannungszustand hindeutet: ${uniqueConflicts.join(', ')}.` 
-        : "Keine offenkundigen Gegenpol-Spannungen in der Positiv-Auswahl.";
+        ? `ACHTUNG - INNERE AMBIVALENZ: Du hast folgende Gegenpole GLEICHZEITIG positiv gewählt, was auf einen starken inneren Spannungszustand hindeutet: ${uniqueConflicts.join(', ')}.` 
+        : "Keine offenkundigen Gegenpol-Spannungen in Deiner Positiv-Auswahl.";
 
     // 4. DER NEUE, STRUKTURIERTE SYSTEM-PROMPT
     const systemPrompt = `Du bist ein hochqualifizierter Tiefenpsychologe nach der Lehre von Dr. Heinrich Reich (TU-Anima Bildertest). 
-    Deine Aufgabe ist eine hochgradig individuelle, differenzierte und strukturierte Falldiagnose des Testanden sowie der Entwurf eines präzisen Bild-Prompts.
+    Deine Aufgabe ist eine hochgradig individuelle, differenzierte und strukturierte psychologische Diagnose sowie der Entwurf eines präzisen Bild-Prompts.
+
+    SPRACHSTIL & ANSPRACHE (EXTREM WICHTIG):
+    - Sprich die Person ZWINGEND direkt, empathisch und persönlich mit "Du" an (z.B. "Du zeigst...", "Deine Wahl offenbart...").
+    - Verwende NIEMALS unpersönliche Begriffe wie "Der Testand", "Die Person", "Der Patient" oder "Er/Sie".
 
     VERBOTENE FLOSKELN (STRIKT VERMEIDEN!):
     - "In der psychologischen Analyse..."
     - "Psychologisch gesehen..."
     - "Zusammenfassend lässt sich sagen..."
-    -> Verwende NIEMALS standardisierte KI-Einleitungen oder -Schlusssätze. Steig sofort klinisch und tiefgründig in die Diagnose ein.
+    -> Verwende NIEMALS standardisierte KI-Einleitungen oder -Schlusssätze. Steig sofort klinisch, tiefgründig und in der direkten "Du"-Ansprache in die Diagnose ein.
 
-    === PSYCHOLOGISCHE DATEN DES TESTANDEN ===
+    === PSYCHOLOGISCHE DATEN (DEINE GRUNDLAGE) ===
     
-    FAVORITEN (Die stärksten unbewussten Triebfedern):
+    FAVORITEN (Deine stärksten unbewussten Triebfedern):
     - Positiver Kern 1: ${posFav1?.name} (Generell: ${posFav1?.meaning} | Spezifisch positiv gewählt: ${posFav1?.pos_meaning})
     - Positiver Kern 2: ${posFav2?.name} (Generell: ${posFav2?.meaning} | Spezifisch positiv gewählt: ${posFav2?.pos_meaning})
     - Haupt-Blockade/Abwehr: ${negFav1?.name} (Generell: ${negFav1?.meaning} | Spezifisch negativ gewählt: ${negFav1?.neg_meaning})
@@ -74,13 +78,13 @@ export const generateSoulCard = async (selectionData) => {
     1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose anhand der Daten.
     Strukturiere deinen Text ZWINGEND als HTML-Code! Verwende <h3> für die 4 Überschriften und <p> für die Absätze. Nutze KEIN Markdown.
     <h3>Zentrale Seelendynamik</h3>
-    <p>(Analyse der positiven Favoriten)</p>
+    <p>(Analyse der positiven Favoriten - in direkter Du-Ansprache)</p>
     <h3>Abwehr und Blockaden</h3>
-    <p>(Tiefenanalyse des negativen Favoriten)</p>
+    <p>(Tiefenanalyse des negativen Favoriten - in direkter Du-Ansprache)</p>
     <h3>Innere Spannungsfelder</h3>
-    <p>(Analyse der Ambivalenzen / Reibung)</p>
+    <p>(Analyse der Ambivalenzen / Reibung - in direkter Du-Ansprache)</p>
     <h3>Diagnostischer Ausblick</h3>
-    <p>(Ein prägnanter, therapeutischer Blick auf die Entwicklungsaufgabe)</p>
+    <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um ein analoges Artefakt zu simulieren:
@@ -91,9 +95,9 @@ export const generateSoulCard = async (selectionData) => {
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
-  "interpretation": "Deine fundierte HTML-Analyse...",
-  "visual_description": "A full-bleed close-up photograph of a raw, expressionistic Art Brut graphic, completely filling the entire frame with no internal margins or artificial borders. The graphic itself features only SEVERY thick, shaky, erratic, imperfect, hand-painted or linocut-style black contour lines, rendered with significant pressure variations and ink bleed, on a worn, textured ivory cardboard surface (like aged paper or thick cardstock, but only the graphic is visible). The colors are deeply saturated but strictly matte and earthy (crimson, golden yellow, forest green, deep blue), with uneven density and imperfect, bleeding fills that show the underlying cardboard grain and accidental spotting. The composition is a purely abstract, naive, and chaotic arrangement of organic, unrefined archetypal forms (like stylized masks, birds, plants, and celestial symbols, as seen in image_4.png and image_5.png) that are NOT perfectly geometric. No text is visible. The composition symbolizes the internal dynamic conflict between ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}. The lighting is directional, emphasizing the physical texture. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss. Aspect Ratio: 2:3"
-}`; 
+      "interpretation": "Deine fundierte HTML-Analyse in direkter Du-Ansprache...",
+      "visual_description": "A full-bleed close-up photograph of a raw, expressionistic Art Brut graphic, completely filling the entire frame with no internal margins or artificial borders. The graphic itself features only VERY thick, shaky, erratic, imperfect, hand-painted or linocut-style black contour lines, rendered with significant pressure variations and ink bleed, on a worn, textured ivory cardboard surface (like aged paper or thick cardstock, but only the graphic is visible). The colors are deeply saturated but strictly matte and earthy (crimson, golden yellow, forest green, deep blue), with uneven density and imperfect, bleeding fills that show the underlying cardboard grain and accidental spotting. The composition is a purely abstract, naive, and chaotic arrangement of organic, unrefined archetypal forms (like stylized masks, birds, plants, and celestial symbols) that are NOT perfectly geometric. No text is visible. The composition symbolizes the internal dynamic conflict between ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}. The lighting is directional, emphasizing the physical texture. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss. Aspect Ratio: 2:3"
+    }`; 
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
