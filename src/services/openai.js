@@ -99,7 +99,7 @@ export const generateSoulCard = async (selectionData) => {
     {
       "interpretation": "Deine HTML Analyse...",
       "visual_description": "Primitive Art Brut painting, mid-century abstract expressionism, vintage rough linocut print aesthetic on textured paper. A few massive, clumsy, entirely non-representational abstract shapes symbolizing [HIER_DIE_KEYWORDS_EINSETZEN]. The shapes are defined by extremely thick, heavy, unrefined black outlines and filled with flat, highly saturated, contrasting primary colors. Completely asymmetrical, flat 2D composition. No 3D shading, no gradients, no recognizable real-world objects, borderless. Aspect ratio 2:3"
-    }
+    }`;
 
 // ... [Restlicher Fetch-Code bleibt gleich] ...
 
