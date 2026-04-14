@@ -89,18 +89,32 @@ export const generateSoulCard = async (selectionData) => {
     // ... [Vorheriger Code bleibt gleich] ...
 
 
-    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - STIL: Vintage Gouache-Gemälde, grobe Lithografie mit leichter Rasterpunkt-Textur (Retro-Druck).
-    - KOMPOSITION: Randabfallend (Full-Bleed). Das Bild füllt die GESAMTE Leinwand aus. KEINE weißen Ränder außenrum, kein freies Papier.
-    - STRUKTUR (WICHTIG): Das gesamte Bild wird durch extrem dicke, schwungvolle schwarze Pinselstriche strukturiert. Diese dicken Linien überschneiden sich und teilen die Leinwand in wenige große, klobige Zonen auf (ähnlich wie das Bleigerüst bei einem bunten Kirchenfenster).
-    - FARBEN: Es gibt KEIN Hintergrundmuster. Die großen Zonen zwischen den schwarzen Linien sind mit 3 bis 4 satten, leuchtenden Farben deckend ausgemalt.
-    
-    ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
-    {
-      "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A vintage, mid-century abstract expressionist gouache painting with a rough lithograph and subtle halftone dot texture. COMPOSITION: Full-bleed, edge-to-edge covering the entire canvas. NO white paper margins, NO external frames. STRUCTURE: The entire image is constructed using EXTREMELY THICK, heavy, sweeping, and chaotic black brushstrokes. These massive black lines intersect and divide the entire canvas into a few large, distinct, asymmetrical abstract zones (symbolizing ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}). COLOR: There is NO background grid or pattern. Instead, the large abstract zones created by the black lines are filled directly with a LIMITED PALETTE of 3 to 4 solid, highly vibrant colors. Think of it structurally like a very messy, primitive, opaque stained-glass window: the thick black paint acts as the heavy dividing lines, and the vibrant colors flatly fill the gaps between them. NO checkerboards, NO detached background layers, NO rigid geometry, NO tiny details. Aspect Ratio: 2:3"
-    }`;
+
+    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
+
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
+
+    - STIL: 1950er Jahre Abstrakter Expressionismus, Vintage-Lithografie, rauer Siebdruck mit deutlicher Rasterpunkt-Textur (Retro-Druck).
+
+    - KOMPOSITION: Randabfallend (Full-Bleed). Keine weißen Ränder, kein Rahmen.
+
+    - LINIEN UND FORMEN: Rein abstrakt. Keine echten Objekte. Extrem dicke, chaotische, schnelle und schwungvolle schwarze Pinselstriche (gestisch), die quer über das Bild tanzen.
+
+    - FARBEN: Ein flächiger, leuchtender Hintergrund (z.B. sattes Gelb oder helles Creme). Darauf liegen die dicken schwarzen Linien. Einige Zwischenräume sind grob mit flächigen Flecken aus Primärfarben (Rot, Grün, Blau) gefüllt. Keine Verläufe, keine Karomuster.
+
+    
+
+    ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
+
+    {
+
+      "interpretation": "Deine HTML Analyse...",
+
+      "visual_description": "A full-bleed, edge-to-edge mid-century abstract expressionist lithograph. Retro 1950s silkscreen print style with visible CMYK halftone dot textures. Purely abstract composition symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The background is a solid, flat, vibrant color (like bright yellow or off-white). Overlaid on this background are extremely thick, fast, chaotic, and sweeping black brushstrokes creating fluid, primitive abstract shapes. Some of the spaces around the black lines are roughly filled with flat patches of vibrant primary colors (intense red, bright green, deep blue). NO checkerboard patterns, NO digital glitches, NO 3D shading, NO realistic objects. The image looks like an authentic, flat, vintage abstract art card. Aspect Ratio: 2:3"
+
+    }`;
+
+
 
 // ... [Restlicher Fetch-Code bleibt gleich] ...
 
