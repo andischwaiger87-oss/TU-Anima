@@ -86,20 +86,21 @@ export const generateSoulCard = async (selectionData) => {
     <h3>Diagnostischer Ausblick</h3>
     <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
     
-    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-STIL: Primitiver Expressionismus / Art Brut, dynamisch.
-FORMEN: Nur GANZ WENIGE, klobige, primitive und naive Symbole. Die Formen können eckig, geschwungen, zackig und ineinander verzahnt sein. (interlocking). KEINE filigranen Netze.
-LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
-FARBEN: Flächen innerhalb der schwarzen Linien sind mit satten, leuchtenden (vibrant) Primärfarben ausgefüllt. Der Farbauftrag ist opak und deckend.
-KOMPOSITION: Komplett asymmetrisch, flach, kein 3D, keine Rahmen. Die Anordnung wirkt energetisch und aneinanderprallend.
+    // ... [Vorheriger Code bleibt gleich] ...
 
-    ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
-    {
-      "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A completely flat 2D scan of a, primitive Art Brut gouache painting on rough, white paper. NO 3D effects, NO shadows, NO borders, NO gradients. Dynamic abstract expressionism. The composition consists of just a few LARGE, bold, angular or curved , and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing and interlocking with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, and unrefined black contour lines, as if painted with a thick, brush. Inside these thick black outlines, the shapes are filled with a UNIQUE, LIMITED PALETTE of 3 to 4 solid, vibrant colors that specifically reflect the psychological mood of these archetypes (e.g., fiery warm tones, deep cool tones, or sharp contrasts). The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO text. The entire canvas is the painting. Aspect Ratio: 2:3"
-    }`;
+    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
+    - STIL: Primitiver Expressionismus, Art Brut, analoger Gouache-Farbauftrag, Linolschnitt-Ästhetik.
+    - FORMEN: REIN ABSTRAKT. Keine realistischen oder wörtlichen Objekte. Nur wenige, klobige, primitive, eckige oder geschwungene Farbflächen, die ineinandergreifen.
+    - LINIEN: Hartkantige (hard-edged), extrem dicke, deckende schwarze Konturen. Keine weichen, digitalen oder unscharfen Pinselstriche.
+    - FARBEN: Beschränkt auf 3 bis 4 individuelle, leuchtende Farben, die die Stimmung der Archetypen spiegeln. 100% deckend (opak), keine Verläufe, kein Shading.
+    - KOMPOSITION: Randabfallend (full-bleed), das Bild füllt die GESAMTE Leinwand aus. Keine weißen Ränder, kein Hintergrund, flache 2D-Optik.
 
+    ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
+    {
+      "interpretation": "Deine HTML Analyse...",
+      "visual_description": "An edge-to-edge, full-bleed abstract gouache painting covering the entire canvas. NO margins, NO white borders, NO 3D effects, NO digital shading, NO gradients. Style: Mid-century Art Brut, primitive abstract expressionism, resembling a stark, raw woodblock print or linocut. The composition consists of NON-LITERAL, purely abstract, chunky, interlocking geometric and organic shapes representing the energetic clash between ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}. DO NOT draw recognizable objects. The shapes are separated by solid, hard-edged, EXTREMELY THICK black contour lines. The black lines must be sharp and opaque, NOT fuzzy or airbrushed. Inside the black outlines, the shapes are filled with a LIMITED PALETTE of exactly 3 to 4 solid, flat, highly vibrant colors matching the psychological mood (e.g., intense warm tones or deep cool tones). The color application is opaque and raw. Completely asymmetrical, flat 2D design. Aspect Ratio: 2:3"
+    }`;
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
