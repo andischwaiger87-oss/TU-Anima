@@ -89,28 +89,22 @@ export const generateSoulCard = async (selectionData) => {
 
     // ... (Obiger Code bleibt unverändert)
 
-    // ... (Obiger Code bleibt unverändert)
 
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Halte den Prompt für das Bild extrem kurz und simpel, um Halluzinationen zu vermeiden.
-    - STIL: Art Brut, 1950er, sehr primitiv und simpel.
-    - INHALT: Heller Papierhintergrund. Nur 3 bis 4 klobige, abstrakte Farbflächen in satten Primärfarben (Rot, Gelb, Blau, Grün).
+    - STIL: Abstrakt, Art Brut, 1950er, sehr primitiv und simpel.
+    - INHALT: Heller Papierhintergrund. 
     - LINIEN: Sehr dicke, einfache schwarze Konturen.
     - KEINE DETAILS: Keine Schattierungen, keine Muster, kein 3D, flach.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A very simple, primitive Art Brut abstract painting on off-white paper. 2D, completely flat, no shading, no small details. Just 3 or 4 large, clunky, abstract shapes. The shapes are filled with solid, flat primary colors (red, yellow, blue, green). Very thick, messy black outlines around and over the shapes. Childlike, raw 1950s style representing the feelings of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Aspect Ratio: 2:3"
+      "visual_description": "A very simple an minimalistic, primitive Art Brut abstract painting on off-white paper. 2D, chaotic lines and Shapes, dynamic, completely flat, no shading, no small details. Just large, clunky, abstract shapes. The shapes are filled with solid, flat vivid colors. Very thick, messy black outlines around and over the shapes. raw 1950s style representing the feelings of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Aspect Ratio: 2:3"
     }`;
 
 // ... (Restlicher Fetch-Code bleibt unverändert)
 
-// ... (Restlicher Fetch-Code bleibt unverändert)
-
-
-
-// ... [Restlicher Fetch-Code bleibt gleich] ...
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
