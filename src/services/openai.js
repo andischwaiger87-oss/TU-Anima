@@ -88,21 +88,21 @@ export const generateSoulCard = async (selectionData) => {
     
     // ... [Vorheriger Code bleibt gleich] ...
 
-    // ... [Vorheriger Code bleibt gleich] ...
 
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - STIL: Mid-Century Abstrakter Expressionismus, Vintage-Lithografie oder grober Siebdruck mit leichter Rasterpunkt-Textur (Halftone). 
-    - FORMEN: Fließend, organisch, schwebend und wild überlappend. KEINE starren Geometrien, KEINE Mosaike, KEIN ineinander verzahntes Puzzle, KEINE Pixelkunst.
-    - LINIEN: Schwungvolle, gestische, fließende und extrem dicke schwarze Pinselstriche. Die Linien tanzen, kreisen, zackig oder kurvig über das Papier (wie bei Kandinsky oder Miró).
-    - FARBEN: Beschränkt auf 3 bis 4 leuchtende Farben. Die Farben füllen die Formen unordentlich aus oder schweben hinter den schwarzen Linien.
-    - KOMPOSITION: Das Bild hat einen unordentlichen, handgemalten Rechteck-Rahmen. Außerhalb des Rahmens ist rohes, weißes Papier. Darin ein dynamisches, luftiges, aber chaotisches Zusammenspiel der Formen.
-
+    - STIL: Vintage Gouache-Gemälde, grobe Lithografie mit leichter Rasterpunkt-Textur (Retro-Druck).
+    - KOMPOSITION: Randabfallend (Full-Bleed). Das Bild füllt die GESAMTE Leinwand aus. KEINE weißen Ränder außenrum, kein freies Papier.
+    - STRUKTUR (WICHTIG): Das gesamte Bild wird durch extrem dicke, schwungvolle schwarze Pinselstriche strukturiert. Diese dicken Linien überschneiden sich und teilen die Leinwand in wenige große, klobige Zonen auf (ähnlich wie das Bleigerüst bei einem bunten Kirchenfenster).
+    - FARBEN: Es gibt KEIN Hintergrundmuster. Die großen Zonen zwischen den schwarzen Linien sind mit 3 bis 4 satten, leuchtenden Farben deckend ausgemalt.
+    
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A vintage, mid-century abstract expressionist painting, styled as a rough lithograph or silkscreen print with visible retro halftone dot textures. STRICT COMPOSITION: The artwork must be enclosed within a messy, hand-painted rectangular border, with plain off-white paper visible outside it. Inside the border, the style is highly dynamic, fluid, and gestural. ABSOLUTELY NO rigid geometry, NO mosaics, NO perfectly interlocking puzzle blocks. The composition features a few large, sweeping, chaotic abstract shapes floating and overlapping (symbolizing ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}). The shapes are defined by EXTREMELY THICK, energetic, fluid black brushstrokes that curve, zigzag, loop, and slash across the canvas organically. The spaces around and inside these thick black lines are filled loosely with a LIMITED PALETTE of exactly 3 to 4 highly vibrant colors matching the psychological mood. The colors are flat but have that vintage print/lithograph texture. NO 3D effects, NO digital shading, NO gradients, NO tiny details. Aspect Ratio: 2:3"
+      "visual_description": "A vintage, mid-century abstract expressionist gouache painting with a rough lithograph and subtle halftone dot texture. COMPOSITION: Full-bleed, edge-to-edge covering the entire canvas. NO white paper margins, NO external frames. STRUCTURE: The entire image is constructed using EXTREMELY THICK, heavy, sweeping, and chaotic black brushstrokes. These massive black lines intersect and divide the entire canvas into a few large, distinct, asymmetrical abstract zones (symbolizing ${posFav1?.name}, ${posFav2?.name}, and ${negFav1?.name}). COLOR: There is NO background grid or pattern. Instead, the large abstract zones created by the black lines are filled directly with a LIMITED PALETTE of 3 to 4 solid, highly vibrant colors. Think of it structurally like a very messy, primitive, opaque stained-glass window: the thick black paint acts as the heavy dividing lines, and the vibrant colors flatly fill the gaps between them. NO checkerboards, NO detached background layers, NO rigid geometry, NO tiny details. Aspect Ratio: 2:3"
     }`;
+
+// ... [Restlicher Fetch-Code bleibt gleich] ...
 
 
 
