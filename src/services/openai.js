@@ -101,7 +101,7 @@ export const generateSoulCard = async (selectionData) => {
 
     - FARBEN: Expressive, kontrastreiche Primärfarben in einem dynamischen, grafischen Retrodruck-Stil.
 
-    - KOMPOSITION: Komplett asymmetrisch, flach, kein 3D, keine Rahmen.
+    - KOMPOSITION: Komplett asymmetrisch, künsterlisch, flach, kein 3D, keine Rahmen.
 
 
 
@@ -111,7 +111,8 @@ export const generateSoulCard = async (selectionData) => {
 
       "interpretation": "Deine HTML Analyse...",
 
-      "visual_description": "A completely flat 2D primitive Art Brut gouache painting, on rough paper. NO 3D effects, NO shadows, NO borders, NO gradients. The style is crude mid-20th-century abstract expressionism. The composition consists of LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, , abstract and dynamic black contour lines, as if painted with a thick brush. Shapes are filled with solid, flat, Expressive, high-contrast primary colors. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
+      "visual_description": "A completely flat 2D primitive Art Brut gouache painting, on rough paper. Borderless,  NO 3D effects, NO shadows, NO borders, NO gradients, 
+No small details. The style is crude mid-20th-century abstract expressionism. The composition consists of a few LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, , abstract and dynamic black contour lines, as if painted with a thick brush. Shapes are filled with solid, flat, Expressive, high-contrast primary colors. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
 
     }`;
 
