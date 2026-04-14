@@ -90,17 +90,18 @@ export const generateSoulCard = async (selectionData) => {
     // ... (Obiger Code bleibt unverändert)
 
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um den Stil der Karten zu treffen:
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
     - ÜBERSETZUNG: Verwende für den Prompt NIEMALS die direkten Namen der Karten. Übersetze ihre Bedeutung in 4 bis 5 englische Keywords für abstrakte Emotionen.
-    - STIL: Primitiver, roher Expressionismus / Art Brut, analoges Vintage-Gouache-Gemälde auf rauem, gealtertem Papier. Kein digitaler Look.
-    - KOMPOSITION: DICHT, FRENETISCH und ALL-OVER (das gesamte Bild ist gefüllt, kein Weißraum). Chaotisches Aufeinandertreffen von klobigen, primitiven Formen. Randabfallend.
-    - LINIEN: EXTREM DICKE, schwere, unkontrollierte, zackige und unsaubere schwarze Trockenpinsel-Tusche-Konturen (gestisch), die wild über das Bild tanzen. Man muss die Borsten sehen.
-    - FARBEN: SATT, OPAK, kontrastreich und ungemischt (Primärfarben). Die Farben überlappen sich chaotisch, sind fleckig und zeigen sichtbare Pinselspuren und Farbbluten. NOCH MEHR TEXTUR.
+    - STIL: 1950er Jahre psychologische Testkarte, primitiver Art Brut Stil. Analog, roh und kindlich.
+    - MEDIUM (WICHTIG): Grobe Wasserfarben-Flecken (Watercolor Wash), über die mit einem sehr dicken schwarzen Wachsmalstift (Wax Crayon / Grease Pencil) gezeichnet wurde.
+    - KOMPOSITION: SEHR SIMPEL. KEIN Mosaik, kein Raster, keine kleinen Details. 
+    - FARBEN: Ein heller, rauer Papierhintergrund. Darauf 3 bis 4 große, unordentliche Wasserfarben-Kleckse in Primärfarben (Rot, Blau, Gelb, Grün).
+    - LINIEN: Über den Farben liegen 4 bis 7 extrem dicke, schnelle, primitive schwarze Wachskreide-Striche.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A dense, chaotic, borderless scan of a crude, vintage Art Brut gouache painting on rough, aged paper. The style is raw, frenetic mid-century abstract expressionism. The composition is ALL-OVER and dense, filled with a chaotic clash of Large, bold, clumsy, and naive archetypal shapes. NO Minimalism, NO empty paper space. The entire canvas is used. The shapes are defined by EXTREMELY THICK, heavy, unrefined, and erratic black dry-brush ink contour lines, as if painted with a large, messy, ruined brush. Visibility of brush bristles throughout. Inside and overlapping these messy outlines, shapes are filled with raw, solid, unmixed, highly vibrant, and opaque primary colors that reflect the psychological feeling of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Colors must bleed into the paper grain. The color application is messy, unmixed, and occasional color bleeding. NO clean lines, NO smooth gradients, NO symmetry, NO perfect geometry, NO text. The image looks like a raw, unedited psychological artifact. Aspect Ratio: 2:3"
+      "visual_description": "A scanned 1950s psychological test card in a primitive, childlike Art Brut style. MEDIUM: Messy watercolor washes with thick black wax crayon (grease pencil) drawn over them. STRICTLY SIMPLE, NOT A MOSAIC, NO GRIDS, NO TINY DETAILS. Background: Rough, off-white paper. Color: 3 or 4 large, loose, careless watercolor splotches in primary colors (vibrant red, blue, green, or yellow). Lines: On top of the colors, there are exactly 4 to 7 very thick, swift, primitive, unrefined black wax crayon lines. The black lines are bold, abstract, and heavily textured like wax, forming a crude symbol of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. The black lines do NOT perfectly align with the color splotches. The aesthetic is raw, analog, and naive. Aspect Ratio: 2:3"
     }`;
 
 // ... (Restlicher Fetch-Code bleibt unverändert)
