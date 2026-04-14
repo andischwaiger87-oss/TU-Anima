@@ -89,20 +89,22 @@ export const generateSoulCard = async (selectionData) => {
 
     // ... (Obiger Code bleibt unverändert)
 
+    // ... (Obiger Code bleibt unverändert)
+
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - ÜBERSETZUNG: Verwende für den Prompt NIEMALS die direkten Namen der Karten. Übersetze ihre Bedeutung in 4 bis 5 englische Keywords für abstrakte Emotionen.
-    - STIL: 1950er Jahre psychologische Testkarte, primitiver Art Brut Stil. Analog, roh und kindlich.
-    - MEDIUM (WICHTIG): Grobe Wasserfarben-Flecken (Watercolor Wash), über die mit einem sehr dicken schwarzen Wachsmalstift (Wax Crayon / Grease Pencil) gezeichnet wurde.
-    - KOMPOSITION: SEHR SIMPEL. KEIN Mosaik, kein Raster, keine kleinen Details. 
-    - FARBEN: Ein heller, rauer Papierhintergrund. Darauf 3 bis 4 große, unordentliche Wasserfarben-Kleckse in Primärfarben (Rot, Blau, Gelb, Grün).
-    - LINIEN: Über den Farben liegen 4 bis 7 extrem dicke, schnelle, primitive schwarze Wachskreide-Striche.
+    Halte den Prompt für das Bild extrem kurz und simpel, um Halluzinationen zu vermeiden.
+    - STIL: Art Brut, 1950er, sehr primitiv und simpel.
+    - INHALT: Heller Papierhintergrund. Nur 3 bis 4 klobige, abstrakte Farbflächen in satten Primärfarben (Rot, Gelb, Blau, Grün).
+    - LINIEN: Sehr dicke, einfache schwarze Konturen.
+    - KEINE DETAILS: Keine Schattierungen, keine Muster, kein 3D, flach.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A scanned 1950s psychological test card in a primitive, childlike Art Brut style. MEDIUM: Messy watercolor washes with thick black wax crayon (grease pencil) drawn over them. STRICTLY SIMPLE, NOT A MOSAIC, NO GRIDS, NO TINY DETAILS. Background: Rough, off-white paper. Color: 3 or 4 large, loose, careless watercolor splotches in primary colors (vibrant red, blue, green, or yellow). Lines: On top of the colors, there are exactly 4 to 7 very thick, swift, primitive, unrefined black wax crayon lines. The black lines are bold, abstract, and heavily textured like wax, forming a crude symbol of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. The black lines do NOT perfectly align with the color splotches. The aesthetic is raw, analog, and naive. Aspect Ratio: 2:3"
+      "visual_description": "A very simple, primitive Art Brut abstract painting on off-white paper. 2D, completely flat, no shading, no small details. Just 3 or 4 large, clunky, abstract shapes. The shapes are filled with solid, flat primary colors (red, yellow, blue, green). Very thick, messy black outlines around and over the shapes. Childlike, raw 1950s style representing the feelings of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Aspect Ratio: 2:3"
     }`;
+
+// ... (Restlicher Fetch-Code bleibt unverändert)
 
 // ... (Restlicher Fetch-Code bleibt unverändert)
 
