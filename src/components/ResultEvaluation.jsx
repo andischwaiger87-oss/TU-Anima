@@ -148,7 +148,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                     @keyframes scan { 0% { top: 5%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 95%; opacity: 0; } }
                 `}</style>
 
-                {/* Neue Karten-Animation */}
                 <div className="card-stack">
                     <div className="anim-card anim-card-1"></div>
                     <div className="anim-card anim-card-2"></div>
@@ -162,7 +161,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                     Seelenbild wird erschaffen
                 </h2>
                 
-                {/* Dynamische Höhe für Textumbruch */}
                 <div style={{ minHeight: '60px', width: '100%', maxWidth: '400px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                      <p key={loadingTextIndex} style={{ 
                          margin: 0, color: '#666', fontSize: '1.05rem', lineHeight: '1.5',
@@ -208,9 +206,34 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         return (
             <div className="result-container" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <style>{`
-                    .html-interpretation h3 { font-size: 1.3rem; color: #111; margin-top: 35px; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+                    .html-interpretation h3 { 
+                        font-size: 1.3rem; 
+                        color: #111; 
+                        margin-top: 35px; 
+                        margin-bottom: 10px; 
+                        border-bottom: 1px solid #eee; 
+                        padding-bottom: 8px; 
+                        text-transform: uppercase; 
+                        letter-spacing: 1px; 
+                        
+                        /* Verhindert Seitenumbruch innerhalb und direkt nach der Überschrift */
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                        page-break-after: avoid;
+                        break-after: avoid;
+                    }
                     .html-interpretation h3:first-child { margin-top: 0; }
-                    .html-interpretation p { line-height: 1.8; color: #444; font-size: 1.1rem; margin-bottom: 20px; }
+                    
+                    .html-interpretation p { 
+                        line-height: 1.8; 
+                        color: #444; 
+                        font-size: 1.1rem; 
+                        margin-bottom: 20px; 
+                        
+                        /* Verhindert, dass der Absatz in der Mitte durchgeschnitten wird */
+                        page-break-inside: avoid;
+                        break-inside: avoid;
+                    }
                     
                     @media (max-width: 768px) {
                         .result-container { padding: 20px 10px !important; }
@@ -250,7 +273,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                         <div style={{ width: '100%', maxWidth: '800px', textAlign: 'left' }}>
                             {isSimulation && <h3 style={{ color: 'red', marginBottom: '20px' }}>DEMO ANALYSE (Simulation)</h3>}
                             
-                            {/* Rendert das HTML von GPT-4o sicher */}
                             <div 
                                 className="html-interpretation"
                                 dangerouslySetInnerHTML={{ __html: result.interpretation }} 
