@@ -87,24 +87,22 @@ export const generateSoulCard = async (selectionData) => {
     <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
     
 
-    // ... (Obiger Code bleibt unverändert)
-
-
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Halte den Prompt für das Bild extrem kurz und simpel, um Halluzinationen zu vermeiden.
-    - STIL: Abstrakt, Art Brut, 1950er, sehr primitiv und simpel.
-    - INHALT: Heller Papierhintergrund. 
-    - LINIEN: Sehr dicke, einfache schwarze Konturen.
-    - KEINE DETAILS: Keine Schattierungen, keine Muster, kein 3D, flach.
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
+    - ÜBERSETZUNG DER ARCHETYPEN: Verwende für den Prompt NIEMALS die direkten Namen der Karten (z.B. "Sonne", "Messer"). Übersetze ihre tiefenpsychologische Bedeutung stattdessen in 4 bis 5 englische Keywords für abstrakte Emotionen (z.B. "vitality, freedom clashing with strict restriction and fear").
+    - STIL: Primitiver dynamischer Expressionismus / Art Brut.
+    - FORMEN: GANZ WENIGE, klobige, dynamische, primitive und naive Symbole. Biomorphe Kurven mit kräftigen schwarzen Outlines. REIN ABSTRAKT. Keine echten Objekte.
+    - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
+    - FARBEN: Expressive, kontrastreiche, lebendige Primärfarben in einem dynamischen, grafischen Retrodruck-Stil.
+    - KOMPOSITION: Komplett asymmetrisch, künstlerisch, reduziert, Klarer Fokus, flach, kein 3D, keine Rahmen.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A very simple an minimalistic, primitive Art Brut abstract painting on off-white paper. 2D, chaotic lines and Shapes, dynamic, completely flat, no shading, no small details. Just large, clunky, abstract shapes. The shapes are filled with solid, flat vivid colors. Very thick, messy black outlines around and over the shapes. raw 1950s style representing the feelings of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Aspect Ratio: 2:3"
+      "visual_description": "A completely flat 2D primitive Art Brut gouache painting, on rough paper. Borderless, NO 3D effects, NO shadows, NO borders, NO gradients, No small details. The style is crude mid-20th-century abstract expressionism. The composition consists of a few LARGE, bold, clumsy, and naive PURELY ABSTRACT shapes. DO NOT draw recognizable objects (no faces, no animals, no real-world items). These abstract shapes symbolize the emotional clash of THE_TRANSLATED_EMOTIONAL_KEYWORDS. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, abstract and dynamic curved black contour lines, as if painted with a thick brush. Shapes are filled with solid, flat, expressive, high-contrast vivid primary colors that reflect the emotional mood. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
     }`;
 
-// ... (Restlicher Fetch-Code bleibt unverändert)
-
+// ... [Restlicher Fetch-Code bleibt gleich] ...
 
     try {
         console.log("🧠 Schritt 1: GPT-4o analysiert Archetypen und entwirft visuelles Konzept im rauen Artefakt-Stil...");
