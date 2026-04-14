@@ -84,15 +84,25 @@ export const generateSoulCard = async (selectionData) => {
     
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um ein analoges Artefakt zu simulieren:
-    - MATERIAL: Ein Foto einer physischen, alten Karte. Sichtbarer, altweißer Kartenrand um das eigentliche Motiv.
-    - STIL & LINIEN: Art Brut, roher Expressionismus (wie Kandinsky oder frühe Holzschnitte). SEHR DICKE, unregelmäßige, zittrige, schwarze Konturlinien (wie mit starker Wachskreide oder dickem Pinsel gemalt).
+    - MATERIAL: Spielkartenkarton
+    - STIL & LINIEN: Abstrakter Expressionismus wie die TU-Anima Symbolkarten nach Baldur R Ebertin. 
     - FARBEN: Matte, erdige Primärfarben (Dunkelgelb, Karminrot, Dunkelblau, Waldgrün). Unperfekte Farbfüllungen, die teils die schwarze Linie überlappen oder das Papier durchscheinen lassen.
     - KOMPOSITION: Chaotisch, abstrakt, symbolisch. KOMPLETT FLACH (2D). Keine digitalen Effekte.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT:
     {
       "interpretation": "Deine HTML-Analyse...",
-      "visual_description": "A flat, top-down photograph of a single, physical, vintage mid-20th-century psychological testing card. The card features a wide, off-white, slightly aged paper margin framing a central abstract artwork. The art style is raw Art Brut and early abstract expressionism, heavily resembling a crude woodcut print or a primitive thick gouache painting. It features bold, thick, erratic, and unrefined black contour lines that look hand-painted with a stiff brush or thick wax crayon. The abstract shapes are filled with flat, saturated but earthy primary colors—mainly golden yellow, crimson red, deep blue, and forest green. The color application is uneven and matte, occasionally spilling over the black lines or leaving raw unpainted gaps showing the paper texture beneath. The composition is a purely abstract, naive, and chaotic arrangement of organic and geometric shapes symbolizing the interplay between ${posFav1?.name}, ${posFav2?.name}, and clashing with ${negFav1?.name}. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss, and no clean geometries. It must look exactly like an authentic, messy, hand-painted analog card from an old archive."
+      "visual_description": "A flat, top-down photograph of a single, physical psychological symbol card. The art style is abstract expressionism, resembling the appearance of TU-Anima symbol cards by Baldur R. Ebertin.
+
+Abstract Shapes: Instead of real objects or people, you see geometric or organic shapes, lines, and patterns.
+Symbolism: The depictions often feel archetypal or energetic, similar to mandalas or modern abstract art.
+Color Palette: Bold colors play a central role, intended to evoke immediate emotional reactions.
+
+No Text: The front of the card contains no words, to avoid interfering with intuitive perception through rational concepts.
+
+The design is remotely reminiscent of the aesthetics of color tests (like the Lüscher test) but is more complex through the combination of shape and color and focused on psychological projection.
+
+The composition is a purely abstract, naive, and chaotic arrangement of organic and geometric shapes symbolizing the interplay between ${posFav1?.name}, ${posFav2?.name}, and their conflict with ${negFav1?.name}. Strictly flat 2D artwork, absolutely no gradients, no 3D elements, no digital gloss, and no clean geometries. It must look exactly like an authentic, messy, hand-painted analog symbol card. Aspect Ratio: 2:3"
     }`; 
 
     try {
