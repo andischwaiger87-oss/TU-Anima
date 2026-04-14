@@ -88,19 +88,19 @@ export const generateSoulCard = async (selectionData) => {
     
 
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - ÜBERSETZUNG DER ARCHETYPEN: Verwende für den Prompt NIEMALS die direkten Namen der Karten (z.B. "Sonne", "Messer"). Übersetze ihre tiefenpsychologische Bedeutung stattdessen in 4 bis 5 englische Keywords für abstrakte Emotionen (z.B. "vitality, freedom clashing with strict restriction and fear").
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, halte es extrem simpel:
     - STIL: 1950er Jahre abstrakter grafischer Siebdruck (Silkscreen Print). Mid-Century Modern Graphic Art.
-    - FORMEN: GANZ WENIGE, klobige, dynamische, primitive und naive Symbole. Biomorphe Kurven mit kräftigen schwarzen Outlines. REIN ABSTRAKT. Keine echten Objekte.
-    - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
-    - FARBEN: Expressive, kontrastreiche, lebendige Primärfarben in einem dynamischen, grafischen Retrodruck-Stil.
-    - KOMPOSITION: Komplett asymmetrisch, künstlerisch, Minimalistisch, viel Weißraum, Klarer Fokus, flach, kein 3D, keine Rahmen.
+    - PAPIER: 70% des Bildes müssen leeres, raues, cremefarbenes Papier bleiben.
+    - FARBE: Nur 2 oder 3 grobe, flache Farbblöcke (Rot, Gelb, Blau oder Grün). Keine Farbverläufe.
+    - LINIEN: Dicke, schnelle, harte schwarze Pinselstriche (Tusche/Dry-Brush), die über den Farben liegen. Zickzack-Linien oder schnelle Kurven.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A highly minimalist 1950s abstract silkscreen print, on rough paper. Borderless, NO 3D effects, NO shadows, NO borders, NO gradients, No small details. The style is crude mid-20th-century abstract expressionism. The composition consists of a few LARGE, bold, clumsy, and naive PURELY ABSTRACT shapes. DO NOT draw recognizable objects (no faces, no animals, no real-world items). These abstract shapes symbolize the emotional clash of THE_TRANSLATED_EMOTIONAL_KEYWORDS. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, abstract and dynamic curved black contour lines, as if painted with a thick brush. Shapes are filled with solid, flat, expressive, high-contrast vivid primary colors that reflect the emotional mood. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
+      "visual_description": "A highly minimalist 1950s abstract silkscreen print on off-white textured paper. STRICTLY MINIMALIST: 70% of the image is completely empty blank paper. 1) Background: Bare off-white paper. 2) Color: Only 2 or 3 rough, flat, unshaded patches of primary color (red, yellow, blue, or green). 3) Lines: Bold, sweeping, energetic thick black dry-brush ink lines drawn loosely over the colors, forming simple abstract gestures symbolizing [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. The black lines are fast and jagged or curved. NO complex patterns, NO filling the whole canvas, NO 3D shading, NO digital blending. It must look like a rare, sparse, authentic mid-century modern graphic art print. Aspect Ratio: 2:3"
     }`;
+
+
 
 // ... [Restlicher Fetch-Code bleibt gleich] ...
 
