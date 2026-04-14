@@ -86,23 +86,24 @@ export const generateSoulCard = async (selectionData) => {
     <h3>Diagnostischer Ausblick</h3>
     <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
     
-    // ... [Vorheriger Code bleibt gleich] ...
 
 
 
-    2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
+  2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
 
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
 
-    - STIL: 1950er Jahre Abstrakter Expressionismus, Vintage-Lithografie, rauer Siebdruck mit deutlicher Rasterpunkt-Textur (Retro-Druck).
+    - STIL: Primitiver Expressionismus / Art Brut (wie grobe Holzschnitte).
 
-    - KOMPOSITION: Randabfallend (Full-Bleed). Keine weißen Ränder, kein Rahmen.
+    - FORMEN: Nur GANZ WENIGE, klobige, primitive und naive Symbole. KEINE filigranen Netze.
 
-    - LINIEN UND FORMEN: Rein abstrakt. Keine echten Objekte. Extrem dicke, chaotische, schnelle und schwungvolle schwarze Pinselstriche (gestisch), die quer über das Bild tanzen.
+    - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
 
-    - FARBEN: Ein flächiger, leuchtender Hintergrund (z.B. sattes Gelb oder helles Creme). Darauf liegen die dicken schwarzen Linien. Einige Zwischenräume sind grob mit flächigen Flecken aus Primärfarben (Rot, Grün, Blau) gefüllt. Keine Verläufe, keine Karomuster.
+    - FARBEN: Flächen innerhalb der schwarzen Linien sind mit matten Primärfarben (Gelb, Rot, Grün, Blau) ausgefüllt.
 
-    
+    - KOMPOSITION: Komplett asymmetrisch, flach, kein 3D, keine Rahmen.
+
+
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
 
@@ -110,9 +111,10 @@ export const generateSoulCard = async (selectionData) => {
 
       "interpretation": "Deine HTML Analyse...",
 
-      "visual_description": "A full-bleed, edge-to-edge mid-century abstract expressionist lithograph. Retro 1950s silkscreen print style with visible CMYK halftone dot textures. Purely abstract composition symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The background is a solid, flat, vibrant color (like bright yellow or off-white). Overlaid on this background are extremely thick, fast, chaotic, and sweeping black brushstrokes creating fluid, primitive abstract shapes. Some of the spaces around the black lines are roughly filled with flat patches of vibrant primary colors (intense red, bright green, deep blue). NO checkerboard patterns, NO digital glitches, NO 3D shading, NO realistic objects. The image looks like an authentic, flat, vintage abstract art card. Aspect Ratio: 2:3"
+      "visual_description": "A completely flat 2D scan of a vintage, primitive Art Brut gouache painting on rough, off-white paper. NO 3D effects, NO shadows, NO borders, NO gradients. The style is crude mid-20th-century abstract expressionism. The composition consists of just a few LARGE, bold, clumsy, and naive archetypal shapes symbolizing ${posFav1?.name} and ${posFav2?.name} clashing with ${negFav1?.name}. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, and erratic black contour lines, as if painted with a thick, messy brush. Inside these thick black outlines, the shapes are filled with solid, flat, matte, earthy primary colors (crimson red, deep yellow, forest green, dark blue). The color application is messy, unmixed, and occasionally leaves unpainted off-white paper gaps. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Aspect Ratio: 2:3"
 
     }`;
+
 
 
 
