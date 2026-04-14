@@ -89,16 +89,17 @@ export const generateSoulCard = async (selectionData) => {
 
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
     Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben:
-    - ÜBERSETZUNG: Verwende für den Prompt NIEMALS die direkten Namen der Karten. Übersetze ihre Bedeutung in 4 bis 5 englische Keywords für abstrakte Emotionen (z.B. "vitality, freedom and fear").
-    - STIL: Ultra-minimalistischer, primitiver Abstrakter Expressionismus / Art Brut.
-    - FORMEN & LINIEN: EXTREM REDUZIERT. Fast leeres Bild. Zeichne MAXIMAL 3 bis 5 dicke, schnelle, schwungvolle schwarze Pinselstriche. REIN ABSTRAKT.
-    - FARBEN: Ein durchgehender, flacher, heller Hintergrund (z.B. blasses Gelb oder Creme). Nur 2 oder 3 der durch die Linien entstandenen Zwischenräume sind mit einer leuchtenden Primärfarbe (Rot, Blau oder Grün) ausgefüllt. Der Rest des Hintergrunds bleibt leer!
-    - KOMPOSITION: Viel negativer Raum (leere Fläche). Keine Mosaike, kein Wirrwarr.
+    - ÜBERSETZUNG DER ARCHETYPEN: Verwende für den Prompt NIEMALS die direkten Namen der Karten (z.B. "Sonne", "Messer"). Übersetze ihre tiefenpsychologische Bedeutung stattdessen in 4 bis 5 englische Keywords für abstrakte Emotionen (z.B. "vitality, freedom clashing with strict restriction and fear").
+    - STIL: Primitiver dynamischer Expressionismus / Art Brut.
+    - FORMEN: GANZ WENIGE, klobige, dynamische, primitive und naive Symbole. Biomorphe Kurven mit kräftigen schwarzen Outlines. REIN ABSTRAKT. Keine echten Objekte.
+    - LINIEN: Extrem dicke, schwarze Konturen (wie mit einem dicken Pinsel gemalt).
+    - FARBEN: Expressive, kontrastreiche, lebendige Primärfarben in einem dynamischen, grafischen Retrodruck-Stil.
+    - KOMPOSITION: Komplett asymmetrisch, künstlerisch, Minimalistisch, viel Weißraum, Klarer Fokus, flach, kein 3D, keine Rahmen.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A full-bleed, ULTRA-MINIMALIST abstract expressionist gouache painting. STRICTLY MINIMALIST: The canvas is mostly empty, featuring a solid, flat, off-white or pale-yellow background. On this background, there are ONLY 3 to 5 fast, sweeping, extremely thick black brushstrokes. These few black lines curve and cross each other simply to symbolize the abstract emotional feeling of THE_TRANSLATED_EMOTIONAL_KEYWORDS. ONLY 2 or 3 of the gaps created by the intersecting black lines are colored in with flat, unshaded, vibrant primary colors (solid red, blue, or green). The rest of the background remains completely unpainted and empty. Primitive, naive, raw Art Brut style. DO NOT draw real objects. NO complex details, NO mosaics, NO clutter, NO shading, NO hundreds of shapes. Keep it extremely simple and spacious. Aspect Ratio: 2:3"
+      "visual_description": "ULTRA-MINIMALIST completely flat 2D primitive Art Brut gouache painting, on rough paper. Borderless, NO 3D effects, NO shadows, NO borders, NO gradients, No small details. The style is crude mid-20th-century abstract expressionism. The composition consists of a few LARGE, bold, clumsy, and naive PURELY ABSTRACT shapes. DO NOT draw recognizable objects (no faces, no animals, no real-world items). These abstract shapes symbolize the emotional clash of THE_TRANSLATED_EMOTIONAL_KEYWORDS. The shapes are drawn with EXTREMELY THICK, heavy, unrefined, abstract and dynamic curved black contour lines, as if painted with a thick brush. Shapes are filled with solid, flat, expressive, high-contrast vivid primary colors that reflect the emotional mood. The image is completely asymmetrical and chaotic. ABSOLUTELY NO fine lines, NO intricate webs, NO symmetry, NO perfect geometry, NO dark backgrounds, and NO text. The entire canvas is the painting. Borderless, Aspect Ratio: 2:3"
     }`;
 
 // ... [Restlicher Fetch-Code bleibt gleich] ...
