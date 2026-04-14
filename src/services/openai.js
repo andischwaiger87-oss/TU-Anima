@@ -87,18 +87,23 @@ export const generateSoulCard = async (selectionData) => {
     <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
     
 
+    // ... (Obiger Code bleibt unverändert)
+
     2. VISUAL DESCRIPTION FÜR DEN BILDGENERATOR:
-    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, halte es extrem simpel:
-    - STIL: 1950er Jahre abstrakter grafischer Siebdruck (Silkscreen Print). Mid-Century Modern Graphic Art.
-    - PAPIER: 70% des Bildes müssen leeres, raues, cremefarbenes Papier bleiben.
-    - FARBE: Nur 2 oder 3 grobe, flache Farbblöcke (Rot, Gelb, Blau oder Grün). Keine Farbverläufe.
-    - LINIEN: Dicke, schnelle, harte schwarze Pinselstriche (Tusche/Dry-Brush), die über den Farben liegen. Zickzack-Linien oder schnelle Kurven.
+    Übersetze die psychologische Dynamik in ein abstraktes Bild. Halte dich EXAKT an diese Vorgaben, um den Stil der Karten zu treffen:
+    - ÜBERSETZUNG: Verwende für den Prompt NIEMALS die direkten Namen der Karten. Übersetze ihre Bedeutung in 4 bis 5 englische Keywords für abstrakte Emotionen.
+    - STIL: Primitiver, roher Expressionismus / Art Brut, analoges Vintage-Gouache-Gemälde auf rauem, gealtertem Papier. Kein digitaler Look.
+    - KOMPOSITION: DICHT, FRENETISCH und ALL-OVER (das gesamte Bild ist gefüllt, kein Weißraum). Chaotisches Aufeinandertreffen von klobigen, primitiven Formen. Randabfallend.
+    - LINIEN: EXTREM DICKE, schwere, unkontrollierte, zackige und unsaubere schwarze Trockenpinsel-Tusche-Konturen (gestisch), die wild über das Bild tanzen. Man muss die Borsten sehen.
+    - FARBEN: SATT, OPAK, kontrastreich und ungemischt (Primärfarben). Die Farben überlappen sich chaotisch, sind fleckig und zeigen sichtbare Pinselspuren und Farbbluten. NOCH MEHR TEXTUR.
 
     ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im String!):
     {
       "interpretation": "Deine HTML Analyse...",
-      "visual_description": "A highly minimalist 1950s abstract silkscreen print on off-white textured paper. STRICTLY MINIMALIST: 70% of the image is completely empty blank paper. 1) Background: Bare off-white paper. 2) Color: Only 2 or 3 rough, flat, unshaded patches of primary color (red, yellow, blue, or green). 3) Lines: Bold, sweeping, energetic thick black dry-brush ink lines drawn loosely over the colors, forming simple abstract gestures symbolizing [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. The black lines are fast and jagged or curved. NO complex patterns, NO filling the whole canvas, NO 3D shading, NO digital blending. It must look like a rare, sparse, authentic mid-century modern graphic art print. Aspect Ratio: 2:3"
+      "visual_description": "A dense, chaotic, borderless scan of a crude, vintage Art Brut gouache painting on rough, aged paper. The style is raw, frenetic mid-century abstract expressionism. The composition is ALL-OVER and dense, filled with a chaotic clash of Large, bold, clumsy, and naive archetypal shapes. NO Minimalism, NO empty paper space. The entire canvas is used. The shapes are defined by EXTREMELY THICK, heavy, unrefined, and erratic black dry-brush ink contour lines, as if painted with a large, messy, ruined brush. Visibility of brush bristles throughout. Inside and overlapping these messy outlines, shapes are filled with raw, solid, unmixed, highly vibrant, and opaque primary colors that reflect the psychological feeling of [FÜGE HIER DEINE 4-5 ENGLISCHEN EMOTIONS-KEYWORDS EIN]. Colors must bleed into the paper grain. The color application is messy, unmixed, and occasional color bleeding. NO clean lines, NO smooth gradients, NO symmetry, NO perfect geometry, NO text. The image looks like a raw, unedited psychological artifact. Aspect Ratio: 2:3"
     }`;
+
+// ... (Restlicher Fetch-Code bleibt unverändert)
 
 
 
