@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { generateSoulCard, setApiKey, getApiKey } from '../services/openai';
-import { Download, RefreshCw, Key } from 'lucide-react';
+import { generateSoulCard } from '../services/openai'; // setApiKey & getApiKey entfernt
+import { Download, RefreshCw } from 'lucide-react'; // Key Icon entfernt
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -8,7 +8,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
-    const [apiKeyInput, setApiKeyInput] = useState('');
     const resultRef = useRef(null);
     
     const [loadingTextIndex, setLoadingTextIndex] = useState(0);
@@ -30,6 +29,7 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         }
 
         try {
+            // Aufruf unserer neuen sicheren Backend-Logik
             const data = await generateSoulCard(selectionData);
             setResult(data);
         } catch (err) {
@@ -40,40 +40,29 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         }
     };
 
-    const saveKeyAndRetry = () => {
-        if (apiKeyInput) {
-            setApiKey(apiKeyInput);
-            handleGenerate();
-        }
-    };
-
     const downloadPDF = async () => {
         if (!resultRef.current) return;
         try {
             const element = resultRef.current;
-            // Etwas niedrigere Skalierung, damit der Text nicht riesig wird und besser umbricht
             const canvas = await html2canvas(element, { scale: 1.5, useCORS: true, backgroundColor: '#ffffff' });
             const imgData = canvas.toDataURL('image/png');
             
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = 210; // A4 Breite
-            const pdfHeight = 297; // A4 Höhe
-            const margin = 15; // 15mm Seitenrand (verhindert randloses Abschneiden)
+            const pdfWidth = 210;
+            const pdfHeight = 297;
+            const margin = 15;
             
             const contentWidth = pdfWidth - (margin * 2);
             const imgProps = pdf.getImageProperties(imgData);
             const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
             
             let heightLeft = imgHeight;
-            let position = margin; // Startposition mit Rand oben
+            let position = margin;
 
-            // Erste Seite
             pdf.addImage(imgData, 'PNG', margin, position, contentWidth, imgHeight);
             heightLeft -= (pdfHeight - (margin * 2));
 
-            // Weitere Seiten
             while (heightLeft > 0) {
-                // Verschiebt das Bild nach oben (Minusbereich), um den nächsten Abschnitt zu zeigen
                 position = heightLeft - imgHeight + margin; 
                 pdf.addPage();
                 pdf.addImage(imgData, 'PNG', margin, position, contentWidth, imgHeight);
@@ -88,13 +77,8 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
     };
 
     useEffect(() => {
-        if (isSimulation) {
-            handleGenerate();
-        } else if (getApiKey()) {
-            handleGenerate();
-        } else {
-            setError("API Key missing");
-        }
+        // Startet sofort, keine Key-Prüfung mehr nötig
+        handleGenerate();
     }, []);
 
     useEffect(() => {
@@ -125,7 +109,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                         90% { opacity: 1; transform: translateY(0); }
                         100% { opacity: 0; transform: translateY(-5px); }
                     }
-                    /* Karten-Animation */
                     .card-stack { position: relative; width: 60px; height: 90px; margin-bottom: 50px; perspective: 1000px; }
                     .anim-card { 
                         position: absolute; width: 100%; height: 100%; background: white; 
@@ -140,7 +123,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                     @keyframes shuffle2 { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(0px) rotate(0deg); } }
                     @keyframes shuffle3 { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(30px) rotate(15deg); } }
 
-                    /* Scanner-Effekt auf der vordersten Karte */
                     .scanner {
                         position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: rgba(0, 0, 0, 0.5);
                         box-shadow: 0 0 8px 2px rgba(0,0,0,0.2); animation: scan 3s infinite linear;
@@ -177,26 +159,18 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         );
     }
 
-    if (error === "API Key missing" || (error && error.includes("401"))) {
+    if (error) {
         return (
             <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', textAlign: 'center' }}>
-                <Key size={48} style={{ marginBottom: '20px' }} />
-                <h2>API Key benötigt</h2>
+                <h2 style={{ color: 'red' }}>Ein Fehler ist aufgetreten</h2>
                 <p style={{ maxWidth: '400px', marginBottom: '20px' }}>
-                    Um die KI-Funktionen zu nutzen, wird ein OpenAI API Key benötigt.
+                    {error}
                 </p>
-                <input
-                    type="password"
-                    value={apiKeyInput}
-                    onChange={(e) => setApiKeyInput(e.target.value)}
-                    placeholder="sk-..."
-                    style={{ padding: '10px', width: '300px', borderRadius: '4px', border: '1px solid #ccc', marginBottom: '10px' }}
-                />
                 <button
-                    onClick={saveKeyAndRetry}
+                    onClick={() => window.location.reload()}
                     style={{ padding: '10px 20px', background: 'black', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
                 >
-                    Speichern & Starten
+                    Zurück zum Start
                 </button>
             </div>
         );
@@ -216,7 +190,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                         text-transform: uppercase; 
                         letter-spacing: 1px; 
                         
-                        /* Verhindert Seitenumbruch innerhalb und direkt nach der Überschrift */
                         page-break-inside: avoid;
                         break-inside: avoid;
                         page-break-after: avoid;
@@ -230,7 +203,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                         font-size: 1.1rem; 
                         margin-bottom: 20px; 
                         
-                        /* Verhindert, dass der Absatz in der Mitte durchgeschnitten wird */
                         page-break-inside: avoid;
                         break-inside: avoid;
                     }
