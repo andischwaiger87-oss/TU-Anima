@@ -95,8 +95,7 @@ export async function onRequestPost(context) {
                 prompt: finalDallePrompt,
                 n: 1,
                 size: "1024x1792",
-                quality: "hd",
-                style: "natural", 
+                quality: "hd", 
                 response_format: "b64_json"
             })
         });
