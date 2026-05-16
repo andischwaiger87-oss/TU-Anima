@@ -244,6 +244,7 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
     crossOrigin="anonymous"
     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
 />
+                            </div>
                         </div>
 
                         <div style={{ width: '100%', maxWidth: '800px', textAlign: 'left' }}>
