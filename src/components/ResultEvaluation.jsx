@@ -241,7 +241,6 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         : `data:image/png;base64,${result.imageUrl}`
     }
     alt="Seelenkarte"
-    crossOrigin="anonymous"
     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
 />
                             </div>
