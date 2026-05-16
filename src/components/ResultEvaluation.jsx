@@ -234,15 +234,17 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
                                 borderRadius: '4px', 
                                 overflow: 'hidden'
                             }}>
-                                <img
-    src={
-        result.imageUrl.startsWith('http') || result.imageUrl.startsWith('/') || result.imageUrl.startsWith('data:') 
-        ? result.imageUrl 
-        : `data:image/png;base64,${result.imageUrl}`
-    }
-    alt="Seelenkarte"
-    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-/>
+                               <img
+                                    src={
+                                        result.imageUrl 
+                                        ? (result.imageUrl.startsWith('http') || result.imageUrl.startsWith('/') || result.imageUrl.startsWith('data:') 
+                                            ? result.imageUrl 
+                                            : `data:image/png;base64,${result.imageUrl}`)
+                                        : ""
+                                    }
+                                    alt="Seelenkarte"
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
                         </div>
 
