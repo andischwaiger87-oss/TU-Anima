@@ -111,10 +111,21 @@ export async function onRequestPost(context) {
         
         const imageData = await imageResponse.json();
 
-        /// 6. Ergebnis an das Frontend zurücksenden
+        // 6. Ergebnis an das Frontend zurücksenden
+        const imgDataBlock = imageData.data[0];
+        
+        // Wir prüfen, ob es ein direkter Text ist, oder fangen die gängigsten neuen Namen ab. 
+        // Falls der Name völlig unbekannt ist, schicken wir das Objekt als Text mit, um es zu lesen.
+        let finalImage = "";
+        if (typeof imgDataBlock === 'string') {
+            finalImage = imgDataBlock;
+        } else {
+            finalImage = imgDataBlock?.url || imgDataBlock?.b64_json || imgDataBlock?.image_url || JSON.stringify(imgDataBlock);
+        }
+
         return new Response(JSON.stringify({
             interpretation: resultJson.interpretation,
-            imageUrl: imageData.data[0].url // <-- HIER IST DIE ÄNDERUNG
+            imageUrl: finalImage
         }), {
             headers: { 'Content-Type': 'application/json' }
         });
