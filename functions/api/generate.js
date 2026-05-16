@@ -101,7 +101,17 @@ export async function onRequestPost(context) {
             })
         });
 
-        if (!imageResponse.ok) throw new Error(`Image API Error: ${imageResponse.status}`);
+        if (!imageResponse.ok) {
+            // Fängt die genaue Begründung von OpenAI ab
+            const errorDetails = await imageResponse.json().catch(() => ({})); 
+            
+            // Schreibt die Details in dein Cloudflare Real-time Log
+            console.error("🚨 DALL-E FEHLER-DETAILS:", JSON.stringify(errorDetails, null, 2)); 
+            
+            // Reicht den echten Fehlertext an dein Frontend (die App) weiter
+            throw new Error(`Image API Error ${imageResponse.status}: ${errorDetails?.error?.message || "Unbekannter Fehler"}`);
+        }
+        
         const imageData = await imageResponse.json();
 
         // 6. Ergebnis an das Frontend zurücksenden
