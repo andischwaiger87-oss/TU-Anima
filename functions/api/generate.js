@@ -95,8 +95,7 @@ export async function onRequestPost(context) {
                 prompt: finalDallePrompt,
                 n: 1,
                 size: "1024x1792",
-                quality: "hd", 
-                response_format: "b64_json"
+                quality: "hd"
             })
         });
 
@@ -113,10 +112,10 @@ export async function onRequestPost(context) {
         
         const imageData = await imageResponse.json();
 
-        // 6. Ergebnis an das Frontend zurücksenden
+        /// 6. Ergebnis an das Frontend zurücksenden
         return new Response(JSON.stringify({
             interpretation: resultJson.interpretation,
-            imageUrl: `data:image/png;base64,${imageData.data[0].b64_json}`
+            imageUrl: imageData.data[0].url // <-- HIER IST DIE ÄNDERUNG
         }), {
             headers: { 'Content-Type': 'application/json' }
         });
