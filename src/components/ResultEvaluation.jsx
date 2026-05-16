@@ -176,6 +176,15 @@ const ResultEvaluation = ({ selectionData, isSimulation }) => {
         );
     }
 
+
+// ... weiter oben steht "if (error) { ... }"
+
+    console.log("🕵️ DATEN VOM BACKEND:", result); // <-- DIESE ZEILE HINZUFÜGEN
+
+    if (result) {
+        return (
+            <div className="result-container" ... >
+
     if (result) {
         return (
             <div className="result-container" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
