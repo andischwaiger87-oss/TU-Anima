@@ -91,11 +91,10 @@ export async function onRequestPost(context) {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "dall-e-3", 
+                model: "gpt-image-1", // <-- HIER DAS NEUE MODELL EINTRAGEN
                 prompt: finalDallePrompt,
                 n: 1,
-                size: "1024x1792",
-                quality: "hd"
+                size: "1024x1792"
             })
         });
 
