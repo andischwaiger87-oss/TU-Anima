@@ -60,8 +60,8 @@ export async function onRequestPost(context) {
         Übersetze die seelische Konstellation in KONKRETE VISUELLE Entscheidungen. Schreibe in englischer Sprache, prägnant, sinnlich, präzise. Nutze KEINE Kartennamen (kein "sun", "moon", "snake" etc.), sondern die abstrakten Formqualitäten und Energien dahinter. Die einzelnen Felder MÜSSEN voneinander abweichen, je nachdem welche Karten gewählt wurden — eine Saturn-dominierte Auswahl liefert eine andere Palette als eine Sonne-/Jupiter-dominierte.
 
         Die sieben Felder im image_brief:
-        - palette: 2–4 dominierende Farben in präziser Sprache, z.B. "deep indigo, bone white, vermillion accents, charcoal black" — Die Palette MUSS die emotionale Grundtemperatur widerspiegeln (schwer/dunkel vs. strahlend/warm vs. nächtlich-kühl vs. polychrom-vibrierend).
-        - composition: Die Grundarchitektur, z.B. "dense vertical column rising from a heavy base", "spiraling vortex pulling inward from the corners", "horizontal split between light and shadow", "fragmented shapes scattered across the field".
+        - palette: 2–4 dominierende Farben in präziser Sprache. ZWINGEND mindestens EINE dunkle/tiefe Farbe enthalten (near-black, deep indigo, burnt umber, charcoal o.ä.) als tonaler Anker. Beispiel: "deep indigo, bone white, vermillion accents, charcoal black". Die Palette MUSS die emotionale Grundtemperatur widerspiegeln (schwer/dunkel vs. strahlend/warm vs. nächtlich-kühl vs. polychrom-vibrierend).
+        - composition: Die Grundarchitektur als EIN zentrales asymmetrisches Motiv mit innerer Spannung. NIEMALS ein wiederholendes Muster, Gitter, Tapeten-Design oder eine regelmäßige Wellen-Reihe. Beispiele: "one heavy weighted form sitting low in the frame with tension pulling upward", "a single coiled spiral occupying the center, off-balance to the right", "a tall vertical column dividing the field unevenly with a smaller counter-form in the corner", "fragmented shapes converging toward an empty center".
         - motif_character: Charakter der Hauptformen, z.B. "interlocking jagged shapes with sharp angles", "soft curving organic forms melting into each other", "thick coiling spirals broken by hard edges", "tall vertical columns of color".
         - movement: Die Bewegungsenergie, z.B. "slow, weighted, downward-pulled", "fast outward burst, centrifugal", "static and contemplative", "restless oscillating tension".
         - density: Verteilung, z.B. "crowded center, sparse edges", "evenly distributed across the field", "concentrated in one corner with empty space dominating".
@@ -107,9 +107,9 @@ export async function onRequestPost(context) {
         // dass für den Siebdruck-Look kein Platz mehr bleibt. Strukturierte Labels statt Fließtext.
         const finalImagePrompt = `An abstract painted soul-image in the style of 1950s European psychological symbol cards (TU-Anima tradition).
 
-Use the attached input images ONLY as a STYLE reference — extract their medium, brushwork, paper texture, color saturation level, and offset-print grain. Do NOT copy their composition or motifs. Invent a completely NEW abstract motif as specified below.
+Use the attached input images ONLY as a STYLE reference — extract their medium, brushwork, paint saturation, tonal contrast, and offset-print grain. Do NOT copy their composition or motifs. Invent a completely NEW abstract motif as specified below.
 
-Medium: opaque gouache and tempera on cold-press watercolor paper, painted with a soft sable brush. Visible brush hairs, uneven wet edges, pigment pooling at the end of strokes, occasional dry-brush scratchiness, overlapping translucent color washes where strokes meet. Paper grain shows through thinner areas. The whole image carries a faint 1950s offset-print rosette dot pattern as if photographed from an old printed book plate. Edges of color fields are slightly soft and imperfect — never crisp, never vector-clean.
+Medium: heavily saturated opaque gouache and tempera on watercolor paper, applied WET and THICK with a loaded sable brush. Brushstrokes are bold and confident with strong directional drag marks, occasional impasto ridges, pigment pooling at stroke ends, and wet color bleeding into neighboring strokes. Some passages use translucent overlapping washes; other passages are densely opaque. The image MUST contain deep saturated darks — near-black, deep indigo, burnt umber, or charcoal — somewhere in the composition, providing strong tonal contrast against the lighter mid-tones and highlights. This is NOT colored-pencil, NOT pastel, NOT dry — it is wet painted gouache. The whole image is photographed from a 1950s European printed book plate, so a clearly visible offset-print halftone rosette pattern (fine magenta–cyan–yellow dot grid) overlays the entire image and the colors are slightly muted by print aging. Edges of color fields are organic and hand-painted, never crisp or geometric.
 
 Palette: ${brief.palette}.
 Composition: ${brief.composition}.
@@ -119,7 +119,7 @@ Density: ${brief.density}.
 Brushwork: ${brief.brushwork_quality}.
 Mood: ${brief.mood_descriptor}.
 
-The motif is fully abstract — pure color forms, no figures, no faces, no recognizable objects. The painted image fills the entire frame edge to edge, no white margin, no border, no frame.`;
+The image is ONE expressive abstract painted composition with a clearly identifiable central focal motif — NOT a repeating decorative pattern, NOT wallpaper, NOT a tiled design, NOT a regular wave pattern. The composition is asymmetric and hand-arranged, with strong directional tension between the forms. The motif is fully abstract — pure painted color forms, no figures, no faces, no recognizable objects. The painted image fills the entire frame edge to edge, no white margin, no border, no frame.`;
 
         // 6. Style-Referenz-Karten als Blobs laden (die 2 positiven Favoriten).
         // Wir holen sie über den eigenen Origin (Cloudflare Pages serviert /cards/* als Static Asset).
