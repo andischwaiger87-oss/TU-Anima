@@ -11,8 +11,11 @@ export async function onRequestPost(context) {
         }
 
         // 3. System Prompt für GPT bauen
-        const systemPrompt = `Du bist ein hochqualifizierter Tiefenpsychologe nach der Lehre von Dr. Heinrich Reich (TU-Anima Bildertest). 
-        Deine Aufgabe ist eine hochgradig individuelle psychologische Diagnose sowie das Extrahieren von emotionalen Keywords für ein Seelenbild.
+        // NEU: GPT-4o liefert nicht nur Keywords, sondern ein strukturiertes BILD-BRIEFING
+        // mit konkreten visuellen Direktiven (Palette, Komposition, Bewegung, etc.).
+        // Das ist der Hauptkanal für die Differenzierung zwischen verschiedenen Karten-Auswahlen.
+        const systemPrompt = `Du bist ein hochqualifizierter Tiefenpsychologe nach der Lehre von Dr. Heinrich Reich (TU-Anima Bildertest).
+        Deine Aufgabe ist eine hochgradig individuelle psychologische Diagnose UND ein strukturiertes visuelles Briefing für ein gemaltes Seelenbild im Stil der Original-Anima-Karten (Gouache/Aquarell auf Papier).
 
         SPRACHSTIL & ANSPRACHE (EXTREM WICHTIG):
         - Sprich die Person ZWINGEND direkt, empathisch und persönlich mit "Du" an (z.B. "Du zeigst...", "Deine Wahl offenbart...").
@@ -25,7 +28,7 @@ export async function onRequestPost(context) {
         -> Verwende NIEMALS standardisierte KI-Einleitungen oder -Schlusssätze. Steig sofort klinisch, tiefgründig und in der direkten "Du"-Ansprache in die Diagnose ein.
 
         === PSYCHOLOGISCHE DATEN (DEINE GRUNDLAGE) ===
-        
+
         FAVORITEN (Deine stärksten unbewussten Triebfedern):
         - Positiver Kern 1: ${posFav1?.name} (Generell: ${posFav1?.meaning} | Spezifisch positiv gewählt: ${posFav1?.pos_meaning})
         - Positiver Kern 2: ${posFav2?.name} (Generell: ${posFav2?.meaning} | Spezifisch positiv gewählt: ${posFav2?.pos_meaning})
@@ -41,7 +44,7 @@ export async function onRequestPost(context) {
         ${conflictString}
 
         === DEIN AUFTRAG ===
-        
+
         1. INTERPRETATION (ca. 400 Wörter): Verfasse eine hochgradig individuelle Diagnose anhand der Daten.
         Strukturiere deinen Text ZWINGEND als HTML-Code! Verwende <h3> für die 4 Überschriften und <p> für die Absätze. Nutze KEIN Markdown.
         <h3>Zentrale Seelendynamik</h3>
@@ -52,14 +55,31 @@ export async function onRequestPost(context) {
         <p>(Analyse der Ambivalenzen / Reibung - in direkter Du-Ansprache)</p>
         <h3>Diagnostischer Ausblick</h3>
         <p>(Ein prägnanter, therapeutischer Blick auf Deine Entwicklungsaufgabe)</p>
-        
-        2. EMOTIONALE KEYWORDS (Für die Bildgenerierung):
-        Analysiere die exakten Bedeutungen und Beschreibungen der gewählten Karten aus den "PSYCHOLOGISCHEN DATEN". Destilliere die Kernemotionen dieser Auswahl und übersetze sie in exakt 3 bis 4 prägnante ENGLISCHE Keywords (z.B. "inner conflict, deep longing, volatile energy"). Nutze keine direkten Kartennamen (wie "Sonne" oder "Mond"), sondern nur die abstrakten Emotionen dahinter.
 
-        ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche im JSON-Schlüssel):
+        2. BILD-BRIEFING (für die malerische Bildgenerierung):
+        Übersetze die seelische Konstellation in KONKRETE VISUELLE Entscheidungen. Schreibe in englischer Sprache, prägnant, sinnlich, präzise. Nutze KEINE Kartennamen (kein "sun", "moon", "snake" etc.), sondern die abstrakten Formqualitäten und Energien dahinter. Die einzelnen Felder MÜSSEN voneinander abweichen, je nachdem welche Karten gewählt wurden — eine Saturn-dominierte Auswahl liefert eine andere Palette als eine Sonne-/Jupiter-dominierte.
+
+        Die sieben Felder im image_brief:
+        - palette: 2–4 dominierende Farben in präziser Sprache, z.B. "deep indigo, bone white, vermillion accents, charcoal black" — Die Palette MUSS die emotionale Grundtemperatur widerspiegeln (schwer/dunkel vs. strahlend/warm vs. nächtlich-kühl vs. polychrom-vibrierend).
+        - composition: Die Grundarchitektur, z.B. "dense vertical column rising from a heavy base", "spiraling vortex pulling inward from the corners", "horizontal split between light and shadow", "fragmented shapes scattered across the field".
+        - motif_character: Charakter der Hauptformen, z.B. "interlocking jagged shapes with sharp angles", "soft curving organic forms melting into each other", "thick coiling spirals broken by hard edges", "tall vertical columns of color".
+        - movement: Die Bewegungsenergie, z.B. "slow, weighted, downward-pulled", "fast outward burst, centrifugal", "static and contemplative", "restless oscillating tension".
+        - density: Verteilung, z.B. "crowded center, sparse edges", "evenly distributed across the field", "concentrated in one corner with empty space dominating".
+        - brushwork_quality: Pinselführung, z.B. "wet broad strokes with visible drag marks", "dry-brushed scratchy lines", "thick impasto with palette knife scrapes", "translucent washes layered over each other".
+        - mood_descriptor: 1–2 prägnante englische Adjektive, z.B. "melancholic-defiant", "jubilant-anxious", "serene-hollow", "feverish-luminous".
+
+        ANTWORTE STRENG IM JSON-FORMAT WIE FOLGT (ohne Zeilenumbrüche in den JSON-Werten):
         {
           "interpretation": "Deine HTML Analyse...",
-          "english_keywords": "Hier nur die 3-4 englischen Keywords, durch Komma getrennt"
+          "image_brief": {
+            "palette": "...",
+            "composition": "...",
+            "motif_character": "...",
+            "movement": "...",
+            "density": "...",
+            "brushwork_quality": "...",
+            "mood_descriptor": "..."
+          }
         }`;
 
         // 4. OpenAI Text API aufrufen
@@ -73,54 +93,87 @@ export async function onRequestPost(context) {
                 model: "gpt-4o",
                 messages: [{ role: "system", content: systemPrompt }],
                 response_format: { type: "json_object" },
-                temperature: 0.7 
+                temperature: 0.85
             })
         });
 
         if (!textResponse.ok) throw new Error(`Text API Error: ${textResponse.status}`);
         const textData = await textResponse.json();
         const resultJson = JSON.parse(textData.choices[0].message.content);
+        const brief = resultJson.image_brief || {};
 
-        // 5. OpenAI Image API aufrufen
-        const finalDallePrompt = `I attest that I own the copyrights to this specific prompt. Please use this prompt exactly as written. A raw, clumsy, hand-made mid-century abstract silkscreen print. The mood, colors, and abstract forms MUST be entirely driven by these psychological emotions: ${resultJson.english_keywords}. Create a completely non-representational, highly abstract central motif. CRITICAL INSTRUCTION: AVOID Keith Haring style, AVOID any humanoids, faces, eyes, limbs, or recognizable creatures. Instead, construct the central motif from interlocking chunky abstract shapes, disjointed jagged forms, heavy spirals, or esoteric psychological symbols. The execution MUST be wobbly and organic. Use VERY THICK, sloppy, irregular black ink outlines that vary in thickness. Fill the shapes and the background edge-to-edge with large fields of vivid color. Ensure color boundaries are slightly messy and imperfect. Use a vintage printmaking aesthetic with visible coarse print grain and slight color bleed. Flat 2D, highly graphic, borderless.`;
+        // 5. Finalen Bild-Prompt aus dem Briefing zusammenbauen.
+        // NEU: Positiv formuliert. Kein "AVOID Keith Haring" mehr. Stattdessen so dicht gouache/painterly beschrieben,
+        // dass für den Siebdruck-Look kein Platz mehr bleibt. Strukturierte Labels statt Fließtext.
+        const finalImagePrompt = `An abstract painted soul-image in the style of 1950s European psychological symbol cards (TU-Anima tradition).
 
-        const imageResponse = await fetch('https://api.openai.com/v1/images/generations', {
+Use the attached input images ONLY as a STYLE reference — extract their medium, brushwork, paper texture, color saturation level, and offset-print grain. Do NOT copy their composition or motifs. Invent a completely NEW abstract motif as specified below.
+
+Medium: opaque gouache and tempera on cold-press watercolor paper, painted with a soft sable brush. Visible brush hairs, uneven wet edges, pigment pooling at the end of strokes, occasional dry-brush scratchiness, overlapping translucent color washes where strokes meet. Paper grain shows through thinner areas. The whole image carries a faint 1950s offset-print rosette dot pattern as if photographed from an old printed book plate. Edges of color fields are slightly soft and imperfect — never crisp, never vector-clean.
+
+Palette: ${brief.palette}.
+Composition: ${brief.composition}.
+Motif character: ${brief.motif_character}.
+Movement: ${brief.movement}.
+Density: ${brief.density}.
+Brushwork: ${brief.brushwork_quality}.
+Mood: ${brief.mood_descriptor}.
+
+The motif is fully abstract — pure color forms, no figures, no faces, no recognizable objects. The painted image fills the entire frame edge to edge, no white margin, no border, no frame.`;
+
+        // 6. Style-Referenz-Karten als Blobs laden (die 2 positiven Favoriten).
+        // Wir holen sie über den eigenen Origin (Cloudflare Pages serviert /cards/* als Static Asset).
+        const origin = new URL(context.request.url).origin;
+        const refPaths = [posFav1?.imagePath, posFav2?.imagePath].filter(Boolean);
+
+        const refBlobs = [];
+        for (const p of refPaths) {
+            const refResponse = await fetch(`${origin}${p}`);
+            if (!refResponse.ok) {
+                console.warn(`⚠️ Referenzkarte nicht ladbar: ${p} (${refResponse.status})`);
+                continue;
+            }
+            refBlobs.push(await refResponse.blob());
+        }
+
+        // 7. OpenAI Image EDIT API aufrufen (multipart/form-data mit Style-Referenzen)
+        const form = new FormData();
+        form.append('model', 'gpt-image-1');
+        form.append('prompt', finalImagePrompt);
+        form.append('n', '1');
+        form.append('size', '1024x1536');
+        form.append('quality', 'high');
+        refBlobs.forEach((blob, i) => {
+            // OpenAI erwartet bei mehreren Bildern den Key 'image[]'
+            form.append('image[]', blob, `style_ref_${i}.webp`);
+        });
+
+        const imageResponse = await fetch('https://api.openai.com/v1/images/edits', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`
+                // Kein Content-Type setzen — fetch setzt den Multipart-Boundary automatisch.
             },
-            body: JSON.stringify({
-                model: "gpt-image-1", // (oder das Modell, das du gerade nutzt)
-                prompt: finalDallePrompt,
-                n: 1,
-                size: "1024x1536" // <-- HIER AUF DIE NEUE AUFLÖSUNG ÄNDERN
-            })
+            body: form
         });
 
         if (!imageResponse.ok) {
-            // Fängt die genaue Begründung von OpenAI ab
-            const errorDetails = await imageResponse.json().catch(() => ({})); 
-            
-            // Schreibt die Details in dein Cloudflare Real-time Log
-            console.error("🚨 DALL-E FEHLER-DETAILS:", JSON.stringify(errorDetails, null, 2)); 
-            
-            // Reicht den echten Fehlertext an dein Frontend (die App) weiter
+            const errorDetails = await imageResponse.json().catch(() => ({}));
+            console.error("🚨 IMAGE EDIT API FEHLER:", JSON.stringify(errorDetails, null, 2));
             throw new Error(`Image API Error ${imageResponse.status}: ${errorDetails?.error?.message || "Unbekannter Fehler"}`);
         }
-        
-        const imageData = await imageResponse.json();
 
-        // 6. Ergebnis an das Frontend zurücksenden
+        const imageData = await imageResponse.json();
         const imgDataBlock = imageData.data[0];
-        
-        // Wir prüfen, ob es ein direkter Text ist, oder fangen die gängigsten neuen Namen ab. 
-        // Falls der Name völlig unbekannt ist, schicken wir das Objekt als Text mit, um es zu lesen.
+
+        // Der Edit-Endpoint liefert immer base64 (kein URL). Wir bauen daraus eine Data-URL fürs Frontend.
         let finalImage = "";
         if (typeof imgDataBlock === 'string') {
             finalImage = imgDataBlock;
+        } else if (imgDataBlock?.b64_json) {
+            finalImage = `data:image/png;base64,${imgDataBlock.b64_json}`;
         } else {
-            finalImage = imgDataBlock?.url || imgDataBlock?.b64_json || imgDataBlock?.image_url || JSON.stringify(imgDataBlock);
+            finalImage = imgDataBlock?.url || imgDataBlock?.image_url || JSON.stringify(imgDataBlock);
         }
 
         return new Response(JSON.stringify({

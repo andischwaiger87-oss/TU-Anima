@@ -35,9 +35,10 @@ export const generateSoulCard = async (selectionData) => {
         : "Keine offenkundigen Gegenpol-Spannungen in Deiner Positiv-Auswahl.";
 
     // 4. DATEN PAKETIEREN UND AN DAS CLOUDFLARE BACKEND SENDEN
+    // imagePath wird mitgeschickt, damit das Backend die echten Karten als Style-Referenz an OpenAI laden kann.
     const payload = {
-        posFav1: posFav1 ? { name: posFav1.name, meaning: posFav1.meaning, pos_meaning: posFav1.pos_meaning } : null,
-        posFav2: posFav2 ? { name: posFav2.name, meaning: posFav2.meaning, pos_meaning: posFav2.pos_meaning } : null,
+        posFav1: posFav1 ? { name: posFav1.name, meaning: posFav1.meaning, pos_meaning: posFav1.pos_meaning, imagePath: posFav1.image } : null,
+        posFav2: posFav2 ? { name: posFav2.name, meaning: posFav2.meaning, pos_meaning: posFav2.pos_meaning, imagePath: posFav2.image } : null,
         negFav1: negFav1 ? { name: negFav1.name, meaning: negFav1.meaning, neg_meaning: negFav1.neg_meaning } : null,
         posDetails,
         negDetails,
