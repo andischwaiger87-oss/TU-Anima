@@ -90,14 +90,18 @@ export async function onRequestPost(context) {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "gpt-4o",
+                // gpt-4o wird von OpenAI am 14.01.2027 abgeschaltet. Offizieller Nachfolger: gpt-6-luna.
+                // Über die Umgebungsvariable TEXT_MODEL im Cloudflare-Dashboard umstellbar, ohne neuen Code.
+                model: context.env.TEXT_MODEL || "gpt-6-luna",
+                // Ohne Reasoning: schnell und günstig, und temperature bleibt wie bisher nutzbar.
+                reasoning_effort: "none",
                 messages: [{ role: "system", content: systemPrompt }],
                 response_format: { type: "json_object" },
                 temperature: 0.85
             })
         });
 
-        if (!textResponse.ok) throw new Error(`Text API Error: ${textResponse.status}`);
+        if (!textResponse.ok) { const errText = await textResponse.json().catch(() => ({})); throw new Error(`Text API Error ${textResponse.status}: ${errText?.error?.message || "Unbekannter Fehler"}`); }
         const textData = await textResponse.json();
         const resultJson = JSON.parse(textData.choices[0].message.content);
         const brief = resultJson.image_brief || {};
@@ -138,7 +142,9 @@ The image is ONE expressive abstract painted composition with a clearly identifi
 
         // 7. OpenAI Image EDIT API aufrufen (multipart/form-data mit Style-Referenzen)
         const form = new FormData();
-        form.append('model', 'gpt-image-1');
+        // gpt-image-1 wurde von OpenAI am 23.10.2026 abgeschaltet. Nachfolger laut Deprecation-Liste: gpt-image-2.6-flare / -sunburst.
+        // Über die Umgebungsvariable IMAGE_MODEL im Cloudflare-Dashboard umstellbar, ohne neuen Code.
+        form.append('model', context.env.IMAGE_MODEL || 'gpt-image-2.6-flare');
         form.append('prompt', finalImagePrompt);
         form.append('n', '1');
         form.append('size', '1024x1536');
