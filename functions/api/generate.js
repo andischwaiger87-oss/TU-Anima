@@ -125,6 +125,32 @@ Mood: ${brief.mood_descriptor}.
 
 The image is ONE expressive abstract painted composition with a clearly identifiable central focal motif — NOT a repeating decorative pattern, NOT wallpaper, NOT a tiled design, NOT a regular wave pattern. The composition is asymmetric and hand-arranged, with strong directional tension between the forms. The motif is fully abstract — pure painted color forms, no figures, no faces, no recognizable objects. The painted image fills the entire frame edge to edge, no white margin, no border, no frame.`;
 
+        // 5b. Stil-Variante v2 (Test, 19.11.2026): nur aktiv bei Aufruf mit ?stil=v2.
+        // Ohne Parameter bleibt der bewährte Ist-Stand (finalImagePrompt oben) unverändert in Verwendung.
+        // Idee: Mit gpt-image-2.6 tragen die Referenzkarten den Stil. Die Beschreibung zielt deshalb auf das Aussehen
+        // der Karten (flache Farbflächen, dunkle Formen, feste Palette, randvoll) statt auf Maltechnik.
+        const stil = new URL(context.request.url).searchParams.get('stil');
+        const promptV2 = `An abstract soul-image card in the visual language of the attached reference cards (1950s European psychological symbol cards, TU-Anima tradition).
+
+The attached images define the STYLE. Match them closely: their flat opaque color fields, their bold dark shapes and contour bands, their limited printing-ink palette, their rough hand-painted edges and their slightly aged printed surface. Do NOT copy their composition or motifs. Invent a completely NEW abstract motif as specified below.
+
+Look of the card set:
+- Flat, opaque, poster-like color fields with hard, slightly irregular hand-painted edges. Little to no shading, no soft gradients, no translucent washes, no impasto relief, no oil-paint texture.
+- Bold near-black or deep blue shapes and contour bands that structure the composition and give strong contrast.
+- Limited palette in the spirit of the reference cards: cadmium red, chrome yellow, cobalt blue, near-black, warm cream, occasionally a muted green. Use the requested palette below as the emphasis within this card palette.
+- Forms fill the whole card edge to edge. No large empty background areas, no sky, no landscape depth: a flat, dense, graphic surface.
+- Subtle offset-print grain and slight color misregistration as on an old printed card, colors slightly aged.
+
+Palette emphasis: ${brief.palette}.
+Composition: ${brief.composition}.
+Motif character: ${brief.motif_character}.
+Movement: ${brief.movement}.
+Mood: ${brief.mood_descriptor}.
+
+The image is ONE expressive abstract composition with a clearly identifiable central motif, NOT a repeating pattern, NOT wallpaper, NOT a tiled design. Asymmetric and hand-arranged, with strong directional tension between the forms. Fully abstract: no figures, no faces, no recognizable objects. No white margin, no border, no frame.`;
+        const imagePrompt = stil === 'v2' ? promptV2 : finalImagePrompt;
+        console.log(`🎨 Bildstil: ${stil === 'v2' ? 'v2 (Test)' : 'Ist-Stand'}`);
+
         // 6. Style-Referenz-Karten als Blobs laden (die 2 positiven Favoriten).
         // Wir holen sie über den eigenen Origin (Cloudflare Pages serviert /cards/* als Static Asset).
         const origin = new URL(context.request.url).origin;
@@ -145,7 +171,7 @@ The image is ONE expressive abstract painted composition with a clearly identifi
         // gpt-image-1 wurde von OpenAI am 23.10.2026 abgeschaltet. Sunburst statt Flare: hält den Stil der Referenzkarten genauer, gleicher Preis.
         // Über die Umgebungsvariable IMAGE_MODEL im Cloudflare-Dashboard umstellbar, ohne neuen Code.
         form.append('model', context.env.IMAGE_MODEL || 'gpt-image-2.6-sunburst');
-        form.append('prompt', finalImagePrompt);
+        form.append('prompt', imagePrompt);
         form.append('n', '1');
         form.append('size', '1024x1536');
         form.append('quality', 'high');

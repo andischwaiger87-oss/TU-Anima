@@ -49,7 +49,9 @@ export const generateSoulCard = async (selectionData) => {
         console.log("📤 Sende psychologische Daten an sicheres Cloudflare-Backend...");
         
         // Hier rufen wir jetzt die Cloudflare Function auf, nicht mehr OpenAI direkt!
-        const response = await fetch('/api/generate', {
+        // Test-Schalter: ?stil=v2 in der Adresse wird an das Backend durchgereicht (Stilvergleich). Ohne Parameter: Ist-Stand.
+        const stil = new URLSearchParams(window.location.search).get('stil');
+        const response = await fetch(stil ? `/api/generate?stil=${encodeURIComponent(stil)}` : '/api/generate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
