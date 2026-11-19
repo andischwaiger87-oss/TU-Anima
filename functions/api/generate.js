@@ -90,10 +90,10 @@ export async function onRequestPost(context) {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                // gpt-4o wird von OpenAI am 14.01.2027 abgeschaltet. Offizieller Nachfolger: gpt-6-luna.
+                // gpt-4o wird von OpenAI am 14.01.2027 abgeschaltet. Offizieller Nachfolger: gpt-6-luna; gpt-6-sol ist die stärkere Variante für die Deutung.
                 // Über die Umgebungsvariable TEXT_MODEL im Cloudflare-Dashboard umstellbar, ohne neuen Code.
-                model: context.env.TEXT_MODEL || "gpt-6-luna",
-                // Ohne Reasoning: schnell und günstig, und temperature bleibt wie bisher nutzbar.
+                model: context.env.TEXT_MODEL || "gpt-6-sol",
+                // Ohne Reasoning: schnell, und temperature bleibt wie bisher nutzbar.
                 reasoning_effort: "none",
                 messages: [{ role: "system", content: systemPrompt }],
                 response_format: { type: "json_object" },
@@ -142,9 +142,9 @@ The image is ONE expressive abstract painted composition with a clearly identifi
 
         // 7. OpenAI Image EDIT API aufrufen (multipart/form-data mit Style-Referenzen)
         const form = new FormData();
-        // gpt-image-1 wurde von OpenAI am 23.10.2026 abgeschaltet. Nachfolger laut Deprecation-Liste: gpt-image-2.6-flare / -sunburst.
+        // gpt-image-1 wurde von OpenAI am 23.10.2026 abgeschaltet. Sunburst statt Flare: hält den Stil der Referenzkarten genauer, gleicher Preis.
         // Über die Umgebungsvariable IMAGE_MODEL im Cloudflare-Dashboard umstellbar, ohne neuen Code.
-        form.append('model', context.env.IMAGE_MODEL || 'gpt-image-2.6-flare');
+        form.append('model', context.env.IMAGE_MODEL || 'gpt-image-2.6-sunburst');
         form.append('prompt', finalImagePrompt);
         form.append('n', '1');
         form.append('size', '1024x1536');
